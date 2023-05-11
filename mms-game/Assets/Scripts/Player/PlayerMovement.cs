@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class PlayerMovement : MonoBehaviour
 {
     private PlayerInput playerInput;
@@ -35,7 +36,6 @@ public class PlayerMovement : MonoBehaviour
         jumpAction.canceled += CancelJump;
 
     }
-
 
 
     // Public for external hooks
@@ -108,8 +108,26 @@ public class PlayerMovement : MonoBehaviour
     {
         moving = true;
         inputX = context.ReadValue<float>();
+        updateFacing();
     }
 
+    #endregion
+
+    #region Rendering - Probably will migrate into another script
+    private bool facingLeft = false;
+    private void updateFacing()
+    {
+        if (inputX == 0)
+        {
+            return;
+        }
+        if (inputX < 0 != facingLeft) // if it is different as it was
+        {
+            facingLeft = !facingLeft;
+            GetComponent<SpriteRenderer>().flipX = facingLeft;
+        }
+
+    }
     #endregion
 
     #region Collisions
@@ -346,15 +364,17 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // otherwise increment away from current pos; see what closest position we can move to
-        var positionToMoveTo = transform.position;
+        Vector3 positionToMoveTo = transform.position;
         for (int i = 1; i < _freeColliderIterations; i++)
         {
             // increment to check all but furthestPoint - we did that already
             var t = (float)i / _freeColliderIterations;
             var posToTry = Vector2.Lerp(pos, furthestPoint, t);
+            Debug.Log($"Actual pos is {transform.position}, posToTry is {posToTry}");
 
             if (Physics2D.OverlapBox(posToTry, _characterBounds.size, 0, _groundLayer))
             {
+                Debug.Log("And they are " + (transform.position.Equals(positionToMoveTo) ? "Equal" : "Different!"));
                 transform.position = positionToMoveTo;
 
                 // We've landed on a corner or hit our head on a ledge. Nudge the player gently

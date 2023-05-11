@@ -56,6 +56,28 @@
                 },
                 {
                     "name": "",
+                    "id": "f8dfc75c-3e87-4a62-a631-2b9f2f685a80",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f71c8230-71b3-4840-a080-759f7252abbb",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "0eb4fd4b-c8e7-4769-b62f-724ecf1fe8fd",
                     "path": "<Keyboard>/f",
                     "interactions": "",
