@@ -350,38 +350,40 @@ public class PlayerMovement : MonoBehaviour
     // We cast our bounds before moving to avoid future collisions
     private void MoveCharacter()
     {
-        var pos = transform.position + _characterBounds.center;
+        Vector3 pos = transform.position + _characterBounds.center;
         RawMovement = new Vector3(_currentHorizontalSpeed, _currentVerticalSpeed); // Used externally
-        var move = RawMovement * Time.deltaTime;
-        var furthestPoint = pos + move;
+        Vector3 move = RawMovement * Time.deltaTime;
+        Vector3 furthestPoint = pos + move;
 
         // check furthest movement. If nothing hit, move and don't do extra checks
-        var hit = Physics2D.OverlapBox(furthestPoint, _characterBounds.size, 0, _groundLayer);
-        if (!hit)
+        Collider2D hitCollider = Physics2D.OverlapBox(furthestPoint, _characterBounds.size, 0, _groundLayer);
+        if (!hitCollider)
         {
             transform.position += move;
             return;
         }
 
         // otherwise increment away from current pos; see what closest position we can move to
-        Vector3 positionToMoveTo = transform.position;
+        Vector3 positionToMoveTo = pos;
         for (int i = 1; i < _freeColliderIterations; i++)
         {
             // increment to check all but furthestPoint - we did that already
-            var t = (float)i / _freeColliderIterations;
-            var posToTry = Vector2.Lerp(pos, furthestPoint, t);
-            Debug.Log($"Actual pos is {transform.position}, posToTry is {posToTry}");
+            float t = (float)i / _freeColliderIterations;
+            Vector2 posToTry = Vector2.Lerp(pos, furthestPoint, t);
 
-            if (Physics2D.OverlapBox(posToTry, _characterBounds.size, 0, _groundLayer))
+            // if (Physics2D.OverlapBox(posToTry, _characterBounds.size, 0, _groundLayer))
+            RaycastHit2D hit = Physics2D.BoxCast(posToTry, _characterBounds.size, 0, Vector2.up, 0, _groundLayer);
+            if (hit)
             {
-                Debug.Log("And they are " + (transform.position.Equals(positionToMoveTo) ? "Equal" : "Different!"));
-                transform.position = positionToMoveTo;
+                transform.position = positionToMoveTo - _characterBounds.center; //! Added by me ,.,
 
                 // We've landed on a corner or hit our head on a ledge. Nudge the player gently
                 if (i == 1)
                 {
+                    // Physics2D.BoxCast(posToTry, _characterBounds.size, 0, Vector2.up, 0, _groundLayer);
                     if (_currentVerticalSpeed < 0) _currentVerticalSpeed = 0;
-                    var dir = transform.position - hit.transform.position;
+                    Vector3 dir = transform.position - new Vector3(hit.point.x, hit.point.y, 0);
+                    Debug.DrawLine(transform.position, new Vector3(hit.point.x, hit.point.y, 0), Color.white, 10);
                     transform.position += dir.normalized * move.magnitude;
                 }
 
