@@ -71,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
         CalculateGravity(); // Vertical movement
         CalculateJump(); // Possibly overrides vertical
         CalculateWallSlide();
+        CalculateWallJump();
 
         MoveCharacter(); // Actually perform the axis movement
     }
@@ -86,6 +87,14 @@ public class PlayerMovement : MonoBehaviour
         }
 
         _lastJumpPressed = Time.time;
+
+        // Wall jump
+        if (wallSliding)
+        {
+            wallJumping = true;
+            wallJumpDirection = facingLeft ? 1f : -1f;
+            wallSliding = false;
+        }
     }
 
     private void CancelJump(InputAction.CallbackContext context)
@@ -421,6 +430,33 @@ public class PlayerMovement : MonoBehaviour
         if (wallSliding)
         {
             _currentVerticalSpeed = -wallSlideSpeed;
+        }
+    }
+
+    #endregion
+
+    #region Wall Jump
+
+    [Header("Wall Jump")]
+    private bool wallJumping = false;
+    private float wallJumpDirection = 0f;
+    private float wallJumpForce = 12f;
+    private float wallJumpVerticalForce = 10f;
+    private float wallJumpTime = 0.25f;
+    private float wallJumpTimer = 0f;
+
+    private void CalculateWallJump()
+    {
+        if (wallJumping)
+        {
+            _currentHorizontalSpeed = wallJumpDirection * wallJumpForce;
+            _currentVerticalSpeed = wallJumpVerticalForce;
+            wallJumpTimer += Time.deltaTime;
+            if (wallJumpTimer >= wallJumpTime)
+            {
+                wallJumping = false;
+                wallJumpTimer = 0f;
+            }
         }
     }
 
