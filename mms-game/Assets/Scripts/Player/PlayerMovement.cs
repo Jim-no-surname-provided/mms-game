@@ -429,7 +429,20 @@ public class PlayerMovement : MonoBehaviour
     {
         if (wallSliding)
         {
-            _currentVerticalSpeed = -wallSlideSpeed;
+            if ((facingLeft && _colLeft) || (!facingLeft && _colRight))
+            {
+                if (Mathf.Sign(_currentVerticalSpeed) != Mathf.Sign(Velocity.y))
+                {
+                    _currentVerticalSpeed = 0f;
+                }
+
+                _currentVerticalSpeed -= wallSlideSpeed * Time.deltaTime;
+                _currentVerticalSpeed = Mathf.Max(_currentVerticalSpeed, -_maxFallSpeed);
+            }
+            else
+            {
+                wallSliding = false;
+            }
         }
     }
 
