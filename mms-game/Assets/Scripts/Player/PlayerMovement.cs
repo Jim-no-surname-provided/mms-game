@@ -70,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
         CalculateJumpApex(); // Affects fall speed, so calculate before gravity
         CalculateGravity(); // Vertical movement
         CalculateJump(); // Possibly overrides vertical
+        CalculateWallSlide();
 
         MoveCharacter(); // Actually perform the axis movement
     }
@@ -160,6 +161,20 @@ public class PlayerMovement : MonoBehaviour
         }
 
         _colDown = groundedCheck;
+
+        // Wall Slide
+        if (_colLeft && Velocity.y < 0)
+        {
+            wallSliding = true;
+        }
+        else if (_colRight && Velocity.y < 0)
+        {
+            wallSliding = true;
+        }
+        else
+        {
+            wallSliding = false;
+        }
 
         // The rest
         _colUp = RunDetection(_raysUp);
@@ -394,6 +409,22 @@ public class PlayerMovement : MonoBehaviour
         }
         #endregion
     }
+
+    #region Wall Slide
+
+    [Header("Wall Slide")]
+    [SerializeField] private float wallSlideSpeed = 3f; // speed can't be modified --> somehow always the same
+    private bool wallSliding = false;
+
+    private void CalculateWallSlide()
+    {
+        if (wallSliding)
+        {
+            _currentVerticalSpeed = -wallSlideSpeed;
+        }
+    }
+
+    #endregion
 
     private struct RayRange
     {
