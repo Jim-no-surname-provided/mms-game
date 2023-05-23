@@ -18,23 +18,24 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-
+        // Get References;
+        spriteRenderer = GetComponent<SpriteRenderer>();
         playerInput = GetComponent<PlayerInput>();
         jumpAction = playerInput.actions["Jump"];
         fireAction = playerInput.actions["Fire"];
         movement1dAction = playerInput.actions["Movement1d"];
 
-
+        //! For Debuging
         fireAction.started += (context) =>
         {
             Debug.Log("Fire!");
         };
 
+        // Event Listeners
         movement1dAction.performed += UpdateX;
         movement1dAction.canceled += CancelX;
         jumpAction.started += StartJump;
         jumpAction.canceled += CancelJump;
-
     }
 
 
@@ -69,9 +70,9 @@ public class PlayerMovement : MonoBehaviour
         CalculateWalk(); // Horizontal movement
         CalculateJumpApex(); // Affects fall speed, so calculate before gravity
         CalculateGravity(); // Vertical movement
-        CalculateJump(); // Possibly overrides vertical
         CalculateWallSlide();
-        CalculateWallJump();
+        CalculateJump(); // Possibly overrides vertical
+        //// SetWallJump();
 
         MoveCharacter(); // Actually perform the axis movement
     }
@@ -81,20 +82,23 @@ public class PlayerMovement : MonoBehaviour
 
     private void StartJump(InputAction.CallbackContext context)
     {
+        if (wallSliding)
+        {
+            //// wallJumping = true;
+            wallSliding = false;
+            SetWallJump();
+            SetJump();
+            //// wallJumpDirection = facingLeft ? 1f : -1f;
+        }
+        else
+
         if (CanUseCoyote)
         {
             SetJump();
         }
 
-        _lastJumpPressed = Time.time;
-
         // Wall jump
-        if (wallSliding)
-        {
-            wallJumping = true;
-            wallJumpDirection = facingLeft ? 1f : -1f;
-            wallSliding = false;
-        }
+        _lastJumpPressed = Time.time;
     }
 
     private void CancelJump(InputAction.CallbackContext context)
@@ -125,18 +129,24 @@ public class PlayerMovement : MonoBehaviour
 
     #region Rendering - Probably will migrate into another script
     private bool facingLeft = false;
+    private SpriteRenderer spriteRenderer;
     private void updateFacing()
     {
-        if (inputX == 0)
+        if (inputX == 0) // Don't do anything if nothing is pressed
         {
             return;
         }
         if (inputX < 0 != facingLeft) // if it is different as it was
         {
-            facingLeft = !facingLeft;
-            GetComponent<SpriteRenderer>().flipX = facingLeft;
+            changeFacingDirection();
         }
 
+    }
+
+    private void changeFacingDirection()
+    {
+        facingLeft = !facingLeft;
+        spriteRenderer.flipX = facingLeft;
     }
     #endregion
 
@@ -172,18 +182,14 @@ public class PlayerMovement : MonoBehaviour
         _colDown = groundedCheck;
 
         // Wall Slide
-        if (_colLeft && Velocity.y < 0)
+        if ((_colLeft || _colRight) && Velocity.y < 0 && !wallJumping)
         {
             wallSliding = true;
         }
-        else if (_colRight && Velocity.y < 0)
-        {
-            wallSliding = true;
-        }
-        else
-        {
-            wallSliding = false;
-        }
+        //// else
+        //// {
+        ////     wallSliding = false;
+        //// }
 
         // The rest
         _colUp = RunDetection(_raysUp);
@@ -259,13 +265,18 @@ public class PlayerMovement : MonoBehaviour
         if (moving)
         {
             // Set horizontal move speed
-            _currentHorizontalSpeed += inputX * _acceleration * Time.deltaTime;
+            float inputSpeed = inputX * _acceleration * Time.deltaTime;
+            if (wallJumping)
+            {
+                inputSpeed = Mathf.Lerp(0, inputSpeed, timeSinceLastWallJump / wallJumpTimeThreshold);
+            }
+            _currentHorizontalSpeed += inputSpeed;
 
             // clamped by max frame movement
             _currentHorizontalSpeed = Mathf.Clamp(_currentHorizontalSpeed, -_moveClamp, _moveClamp);
 
             // Apply bonus at the apex of a jump
-            var apexBonus = Mathf.Sign(inputX) * _apexBonus * _apexPoint;
+            float apexBonus = Mathf.Sign(inputX) * _apexBonus * _apexPoint;
             _currentHorizontalSpeed += apexBonus * Time.deltaTime;
         }
         else
@@ -416,13 +427,14 @@ public class PlayerMovement : MonoBehaviour
 
             positionToMoveTo = posToTry;
         }
-        #endregion
     }
+    #endregion
+
 
     #region Wall Slide
 
     [Header("Wall Slide")]
-    [SerializeField] private float wallSlideSpeed = 3f; // speed can't be modified --> somehow always the same
+    [SerializeField] private float wallSlideSpeedPercentage = 0.85f; // speed can't be modified --> somehow always the same
     private bool wallSliding = false;
 
     private void CalculateWallSlide()
@@ -431,16 +443,15 @@ public class PlayerMovement : MonoBehaviour
         {
             if ((facingLeft && _colLeft) || (!facingLeft && _colRight))
             {
-                if (Mathf.Sign(_currentVerticalSpeed) != Mathf.Sign(Velocity.y))
-                {
-                    _currentVerticalSpeed = 0f;
-                }
-
-                _currentVerticalSpeed -= wallSlideSpeed * Time.deltaTime;
-                _currentVerticalSpeed = Mathf.Max(_currentVerticalSpeed, -_maxFallSpeed);
+                //// if (Mathf.Sign(_currentVerticalSpeed) != Mathf.Sign(Velocity.y))
+                //// {
+                ////     _currentVerticalSpeed = 0f;
+                //// }
+                _currentVerticalSpeed *= wallSlideSpeedPercentage;
+                //// _currentVerticalSpeed = Mathf.Max(_currentVerticalSpeed, -_maxFallSpeed);
             }
             else
-            {
+            { //Stop sliding
                 wallSliding = false;
             }
         }
@@ -451,30 +462,32 @@ public class PlayerMovement : MonoBehaviour
     #region Wall Jump
 
     [Header("Wall Jump")]
-    private bool wallJumping = false;
-    private float wallJumpDirection = 0f;
-    private float wallJumpForce = 12f;
-    private float wallJumpVerticalForce = 10f;
-    private float wallJumpTime = 0.25f;
-    private float wallJumpTimer = 0f;
+    //// private bool wallJumping = false;
+    // // private float wallJumpDirection = 0f;
+    [SerializeField]
+    private float wallJumpDistance = 30f;
+    private float lastTimeWallJumped = 0f;
+    [SerializeField]
+    private float wallJumpTimeThreshold = 1f;
+    private bool wallJumping => timeSinceLastWallJump < wallJumpTimeThreshold;
+    private float timeSinceLastWallJump => Time.time - lastTimeWallJumped;
+    // // private float wallJumpVerticalForce = 10f;
+    // // private float wallJumpTime = 0.25f;
+    // // private float wallJumpTimer = 0f;
 
-    private void CalculateWallJump()
+    private void SetWallJump()
     {
-        if (wallJumping)
-        {
-            _currentHorizontalSpeed = wallJumpDirection * wallJumpForce;
-            _currentVerticalSpeed = wallJumpVerticalForce;
-            wallJumpTimer += Time.deltaTime;
-            if (wallJumpTimer >= wallJumpTime)
-            {
-                wallJumping = false;
-                wallJumpTimer = 0f;
-            }
-        }
+        _currentHorizontalSpeed = wallJumpDistance * (facingLeft ? 1f : -1f);
+        lastTimeWallJumped = Time.time;
+        //// _currentVerticalSpeed = wallJumpVerticalForce;
+        ////     wallJumpTimer += Time.deltaTime;
+        ////     if (wallJumpTimer >= wallJumpTime)
+        ////     {
+        ////         wallJumpTimer = 0f;
+        ////     }
     }
 
     #endregion
-
     private struct RayRange
     {
         public RayRange(float x1, float y1, float x2, float y2, Vector2 dir)
