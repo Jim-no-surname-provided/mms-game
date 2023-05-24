@@ -447,15 +447,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (wallSliding)
         {
-            if ((facingLeft && _colLeft) || (!facingLeft && _colRight))
+            if (((facingLeft && _colLeft) || (!facingLeft && _colRight)) && !Grounded)
             {
-                //// if (Mathf.Sign(_currentVerticalSpeed) != Mathf.Sign(Velocity.y))
-                //// {
-                ////     _currentVerticalSpeed = 0f;
-                //// }
                 _currentVerticalSpeed *= wallSlideSpeedPercentage;
                 lastWallWasLeft = _colLeft;
-                //// _currentVerticalSpeed = Mathf.Max(_currentVerticalSpeed, -_maxFallSpeed);
             }
             else
             { //Stop sliding
@@ -470,8 +465,6 @@ public class PlayerMovement : MonoBehaviour
     #region Wall Jump
 
     [Header("Wall Jump")]
-    //// private bool wallJumping = false;
-    // // private float wallJumpDirection = 0f;
     [SerializeField]
     private float wallJumpDistance = 30f;
     private float lastTimeWallJumped = 0f;
@@ -484,9 +477,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float wallCoyoteTimeThreshold = 0.1f;
     private bool CanUseWallCoyote => !WallJumping && !(_colLeft || _colRight) && timeLeftWallSliding + wallCoyoteTimeThreshold > Time.time;
-    // // private float wallJumpVerticalForce = 10f;
-    // // private float wallJumpTime = 0.25f;
-    // // private float wallJumpTimer = 0f;
 
     private void SetWallJump()
     {
@@ -495,12 +485,6 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log($"InputX is {inputX}");
         changeFacingDirection();
         updateFacing();
-        //// _currentVerticalSpeed = wallJumpVerticalForce;
-        ////     wallJumpTimer += Time.deltaTime;
-        ////     if (wallJumpTimer >= wallJumpTime)
-        ////     {
-        ////         wallJumpTimer = 0f;
-        ////     }
     }
 
     #endregion

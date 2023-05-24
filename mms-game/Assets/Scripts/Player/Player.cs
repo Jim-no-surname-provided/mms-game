@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, Hittable
 {
 
 
@@ -16,5 +16,11 @@ public class Player : MonoBehaviour
     {
         lastCheckPoint = checkPointPos;
     }
+
     #endregion
+    
+    public void Hit(Vector3 hitPoint, Collider2D collider, Weapon weapon)
+    {
+        throw new System.NotImplementedException(); // TODO
+    }
 }
