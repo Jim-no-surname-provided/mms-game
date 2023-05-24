@@ -38,18 +38,17 @@ public class PlayerMovement : MonoBehaviour
         jumpAction.canceled += CancelJump;
     }
 
-
     // Public for external hooks
     public Vector3 Velocity { get; private set; }
     //// public FrameInput Input { get; private set; }
-    // public bool JumpingThisFrame { get; private set; }
+    //// public bool JumpingThisFrame { get; private set; }
     public bool LandingThisFrame { get; private set; }
     public Vector3 RawMovement { get; private set; }
     public bool Grounded => _colDown;
     private Vector3 _lastPosition;
 
     private float _currentHorizontalSpeed, _currentVerticalSpeed;
-    private bool moving = false;
+    private bool movingPressed = false;
     private float inputX = 0;
 
     // This is horrible, but for some reason colliders are not fully established when update starts...
@@ -57,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
     void Awake() => Invoke(nameof(Activate), 0.5f);
     void Activate() => _active = true;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!_active) return;
         // Calculate velocity
@@ -82,7 +81,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void StartJump(InputAction.CallbackContext context)
     {
-        if (wallSliding)
+        if (CanUseCoyote)
+        {
+            SetJump();
+        }
+        else
+        if (wallSliding || CanUseWallCoyote)
         {
             //// wallJumping = true;
             wallSliding = false;
@@ -90,12 +94,7 @@ public class PlayerMovement : MonoBehaviour
             SetJump();
             //// wallJumpDirection = facingLeft ? 1f : -1f;
         }
-        else
 
-        if (CanUseCoyote)
-        {
-            SetJump();
-        }
 
         // Wall jump
         _lastJumpPressed = Time.time;
@@ -115,12 +114,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void CancelX(InputAction.CallbackContext context)
     {
-        moving = false;
-
+        movingPressed = false;
     }
     private void UpdateX(InputAction.CallbackContext context)
     {
-        moving = true;
+        movingPressed = true;
         inputX = context.ReadValue<float>();
         updateFacing();
     }
@@ -132,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private void updateFacing()
     {
-        if (inputX == 0) // Don't do anything if nothing is pressed
+        if (!movingPressed) // Don't do anything if nothing is pressed
         {
             return;
         }
@@ -182,7 +180,7 @@ public class PlayerMovement : MonoBehaviour
         _colDown = groundedCheck;
 
         // Wall Slide
-        if ((_colLeft || _colRight) && Velocity.y < 0 && !wallJumping)
+        if ((_colLeft || _colRight) && Velocity.y < 0 && !WallJumping)
         {
             wallSliding = true;
         }
@@ -262,11 +260,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void CalculateWalk()
     {
-        if (moving)
+        if (movingPressed)
         {
             // Set horizontal move speed
             float inputSpeed = inputX * _acceleration * Time.deltaTime;
-            if (wallJumping)
+            if (WallJumping)
             {
                 inputSpeed = Mathf.Lerp(0, inputSpeed, timeSinceLastWallJump / wallJumpTimeThreshold);
             }
@@ -289,6 +287,7 @@ public class PlayerMovement : MonoBehaviour
         {
             // Don't walk through walls
             _currentHorizontalSpeed = 0;
+
         }
     }
 
@@ -387,12 +386,14 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 pos = transform.position + _characterBounds.center;
         RawMovement = new Vector3(_currentHorizontalSpeed, _currentVerticalSpeed); // Used externally
+        ////Debug.Log("_currentVerticalSpeed" + _currentVerticalSpeed);
         Vector3 move = RawMovement * Time.deltaTime;
         Vector3 furthestPoint = pos + move;
 
         // check furthest movement. If nothing hit, move and don't do extra checks
-        Collider2D hitCollider = Physics2D.OverlapBox(furthestPoint, _characterBounds.size, 0, _groundLayer);
-        if (!hitCollider)
+        // Collider2D hitCollider = Physics2D.OverlapBox(furthestPoint, _characterBounds.size, 0, _groundLayer);
+        RaycastHit2D hit = Physics2D.BoxCast(furthestPoint, _characterBounds.size, 0, Vector2.up, 0, _groundLayer);
+        if (!hit.collider)
         {
             transform.position += move;
             return;
@@ -400,14 +401,15 @@ public class PlayerMovement : MonoBehaviour
 
         // otherwise increment away from current pos; see what closest position we can move to
         Vector3 positionToMoveTo = pos;
+        ////Debug.Log("It's calculating the furthest pos it can go to");
         for (int i = 1; i < _freeColliderIterations; i++)
         {
             // increment to check all but furthestPoint - we did that already
             float t = (float)i / _freeColliderIterations;
             Vector2 posToTry = Vector2.Lerp(pos, furthestPoint, t);
 
-            // if (Physics2D.OverlapBox(posToTry, _characterBounds.size, 0, _groundLayer))
-            RaycastHit2D hit = Physics2D.BoxCast(posToTry, _characterBounds.size, 0, Vector2.up, 0, _groundLayer);
+            //// if (Physics2D.OverlapBox(posToTry, _characterBounds.size, 0, _groundLayer))
+            hit = Physics2D.BoxCast(posToTry, _characterBounds.size, 0, Vector2.up, 0, _groundLayer);
             if (hit)
             {
                 transform.position = positionToMoveTo - _characterBounds.center; //! Added by me ,.,
@@ -415,11 +417,7 @@ public class PlayerMovement : MonoBehaviour
                 // We've landed on a corner or hit our head on a ledge. Nudge the player gently
                 if (i == 1)
                 {
-                    // Physics2D.BoxCast(posToTry, _characterBounds.size, 0, Vector2.up, 0, _groundLayer);
-                    if (_currentVerticalSpeed < 0) _currentVerticalSpeed = 0;
-                    Vector3 dir = transform.position - new Vector3(hit.point.x, hit.point.y, 0);
-                    Debug.DrawLine(transform.position, new Vector3(hit.point.x, hit.point.y, 0), Color.white, 10);
-                    transform.position += dir.normalized * move.magnitude;
+                    Corner(move, hit);
                 }
 
                 return;
@@ -428,14 +426,22 @@ public class PlayerMovement : MonoBehaviour
             positionToMoveTo = posToTry;
         }
     }
-    #endregion
 
+    private void Corner(Vector3 move, RaycastHit2D hit)
+    {
+        if (_currentVerticalSpeed < 0) _currentVerticalSpeed = 0;
+        Vector3 dir = transform.position - new Vector3(hit.point.x, hit.point.y, 0);
+        Debug.DrawLine(transform.position, new Vector3(hit.point.x, hit.point.y, 0), Color.white, 10);
+        transform.position += dir.normalized * move.magnitude;
+    }
+    #endregion
 
     #region Wall Slide
 
     [Header("Wall Slide")]
-    [SerializeField] private float wallSlideSpeedPercentage = 0.85f; // speed can't be modified --> somehow always the same
+    [SerializeField] private float wallSlideSpeedPercentage = 0.85f;
     private bool wallSliding = false;
+    private bool lastWallWasLeft = false;
 
     private void CalculateWallSlide()
     {
@@ -448,10 +454,12 @@ public class PlayerMovement : MonoBehaviour
                 ////     _currentVerticalSpeed = 0f;
                 //// }
                 _currentVerticalSpeed *= wallSlideSpeedPercentage;
+                lastWallWasLeft = _colLeft;
                 //// _currentVerticalSpeed = Mathf.Max(_currentVerticalSpeed, -_maxFallSpeed);
             }
             else
             { //Stop sliding
+                timeLeftWallSliding = Time.time;
                 wallSliding = false;
             }
         }
@@ -469,16 +477,24 @@ public class PlayerMovement : MonoBehaviour
     private float lastTimeWallJumped = 0f;
     [SerializeField]
     private float wallJumpTimeThreshold = 1f;
-    private bool wallJumping => timeSinceLastWallJump < wallJumpTimeThreshold;
+    private bool WallJumping => timeSinceLastWallJump < wallJumpTimeThreshold;
     private float timeSinceLastWallJump => Time.time - lastTimeWallJumped;
+    private float timeLeftWallSliding = int.MinValue;
+
+    [SerializeField]
+    private float wallCoyoteTimeThreshold = 0.1f;
+    private bool CanUseWallCoyote => !WallJumping && !(_colLeft || _colRight) && timeLeftWallSliding + wallCoyoteTimeThreshold > Time.time;
     // // private float wallJumpVerticalForce = 10f;
     // // private float wallJumpTime = 0.25f;
     // // private float wallJumpTimer = 0f;
 
     private void SetWallJump()
     {
-        _currentHorizontalSpeed = wallJumpDistance * (facingLeft ? 1f : -1f);
+        _currentHorizontalSpeed = wallJumpDistance * (lastWallWasLeft ? 1f : -1f);
         lastTimeWallJumped = Time.time;
+        Debug.Log($"InputX is {inputX}");
+        changeFacingDirection();
+        updateFacing();
         //// _currentVerticalSpeed = wallJumpVerticalForce;
         ////     wallJumpTimer += Time.deltaTime;
         ////     if (wallJumpTimer >= wallJumpTime)

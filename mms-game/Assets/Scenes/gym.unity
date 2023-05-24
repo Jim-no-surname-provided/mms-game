@@ -4729,12 +4729,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _characterBounds:
     m_Center: {x: 0, y: 0.95, z: 0}
-    m_Extent: {x: 0.23, y: 0.85, z: 0}
+    m_Extent: {x: 0.26, y: 0.91, z: 0}
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
   _detectorCount: 3
-  _detectionRayLength: 0.1
+  _detectionRayLength: 0.05
   _rayBuffer: 0.1
   _acceleration: 60
   _moveClamp: 13
@@ -4752,6 +4752,7 @@ MonoBehaviour:
   wallSlideSpeedPercentage: 0.85
   wallJumpDistance: 12
   wallJumpTimeThreshold: 0.09
+  wallCoyoteTimeThreshold: 0.1
 --- !u!114 &1284773506
 MonoBehaviour:
   m_ObjectHideFlags: 0
