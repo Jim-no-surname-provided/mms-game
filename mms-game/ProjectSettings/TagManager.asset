@@ -12,10 +12,10 @@ TagManager:
   - Water
   - UI
   - Ground
-  - Projectile
+  - PlayerProjectile
   - Hittable
-  - 
-  - 
+  - Player
+  - ExternProjectile
   - 
   - 
   - 
