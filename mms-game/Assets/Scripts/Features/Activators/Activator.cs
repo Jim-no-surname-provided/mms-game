@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Activator : MonoBehaviour, Hittable
 {
-    public abstract void Hit(Vector3 hitPoint, Collider2D collider, Weapon weapon);
+    public abstract void Hit(Vector3 hitPoint, Collider2D collider, DamageDealer weapon);
     [SerializeField]
     protected Activatable[] activatables;
 

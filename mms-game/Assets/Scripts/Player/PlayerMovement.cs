@@ -13,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
     // Store our Actions
     private InputAction jumpAction;
     private InputAction movement1dAction;
-    private InputAction fireAction;
 
 
     private void Start()
@@ -22,14 +21,7 @@ public class PlayerMovement : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         playerInput = GetComponent<PlayerInput>();
         jumpAction = playerInput.actions["Jump"];
-        fireAction = playerInput.actions["Fire"];
         movement1dAction = playerInput.actions["Movement1d"];
-
-        //! For Debuging
-        fireAction.started += (context) =>
-        {
-            Debug.Log("Fire!");
-        };
 
         // Event Listeners
         movement1dAction.performed += UpdateX;
@@ -40,8 +32,6 @@ public class PlayerMovement : MonoBehaviour
 
     // Public for external hooks
     public Vector3 Velocity { get; private set; }
-    //// public FrameInput Input { get; private set; }
-    //// public bool JumpingThisFrame { get; private set; }
     public bool LandingThisFrame { get; private set; }
     public Vector3 RawMovement { get; private set; }
     public bool Grounded => _colDown;
@@ -71,7 +61,6 @@ public class PlayerMovement : MonoBehaviour
         CalculateGravity(); // Vertical movement
         CalculateWallSlide();
         CalculateJump(); // Possibly overrides vertical
-        //// SetWallJump();
 
         MoveCharacter(); // Actually perform the axis movement
     }
@@ -180,14 +169,10 @@ public class PlayerMovement : MonoBehaviour
         _colDown = groundedCheck;
 
         // Wall Slide
-        if ((_colLeft || _colRight) && Velocity.y < 0 && !WallJumping)
+        if ((_colLeft || _colRight) && Velocity.y < 0 && !WallJumping && !Grounded)
         {
             wallSliding = true;
         }
-        //// else
-        //// {
-        ////     wallSliding = false;
-        //// }
 
         // The rest
         _colUp = RunDetection(_raysUp);
@@ -386,7 +371,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 pos = transform.position + _characterBounds.center;
         RawMovement = new Vector3(_currentHorizontalSpeed, _currentVerticalSpeed); // Used externally
-        ////Debug.Log("_currentVerticalSpeed" + _currentVerticalSpeed);
         Vector3 move = RawMovement * Time.deltaTime;
         Vector3 furthestPoint = pos + move;
 
@@ -401,7 +385,6 @@ public class PlayerMovement : MonoBehaviour
 
         // otherwise increment away from current pos; see what closest position we can move to
         Vector3 positionToMoveTo = pos;
-        ////Debug.Log("It's calculating the furthest pos it can go to");
         for (int i = 1; i < _freeColliderIterations; i++)
         {
             // increment to check all but furthestPoint - we did that already
@@ -447,7 +430,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (wallSliding)
         {
-            if (((facingLeft && _colLeft) || (!facingLeft && _colRight)) && !Grounded)
+            // // if (((facingLeft && _colLeft) || (!facingLeft && _colRight)) && !Grounded)
+            if ((_colLeft || _colRight) && !Grounded)
             {
                 _currentVerticalSpeed *= wallSlideSpeedPercentage;
                 lastWallWasLeft = _colLeft;
@@ -482,7 +466,6 @@ public class PlayerMovement : MonoBehaviour
     {
         _currentHorizontalSpeed = wallJumpDistance * (lastWallWasLeft ? 1f : -1f);
         lastTimeWallJumped = Time.time;
-        Debug.Log($"InputX is {inputX}");
         changeFacingDirection();
         updateFacing();
     }
