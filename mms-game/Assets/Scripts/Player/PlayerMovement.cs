@@ -8,9 +8,9 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(SpriteRenderer))]
 public class PlayerMovement : MonoBehaviour
 {
-    private PlayerInput playerInput;
 
     // Store our Actions
+    private PlayerInput playerInput;
     private InputAction jumpAction;
     private InputAction movement1dAction;
 
@@ -77,11 +77,7 @@ public class PlayerMovement : MonoBehaviour
         else
         if (wallSliding || CanUseWallCoyote)
         {
-            //// wallJumping = true;
-            wallSliding = false;
             SetWallJump();
-            SetJump();
-            //// wallJumpDirection = facingLeft ? 1f : -1f;
         }
 
 
@@ -317,9 +313,9 @@ public class PlayerMovement : MonoBehaviour
     private bool _coyoteUsable;
     private bool _endedJumpEarly = true;
     private float _apexPoint; // Becomes 1 at the apex of a jump
-    private float _lastJumpPressed;
+    private float _lastJumpPressed = 0;
     private bool CanUseCoyote => _coyoteUsable && !_colDown && _timeLeftGrounded + _coyoteTimeThreshold > Time.time;
-    private bool HasBufferedJump => _colDown && _lastJumpPressed + _jumpBuffer > Time.time;
+    private bool HasBufferedJump => /* _colDown && */ _lastJumpPressed + _jumpBuffer > Time.time;
 
     private void CalculateJumpApex()
     {
@@ -343,14 +339,21 @@ public class PlayerMovement : MonoBehaviour
         _timeLeftGrounded = float.MinValue;
     }
 
+    // This depends on the place the palyer is in more than on the input, so it cannot be managed by input listeners 
     private void CalculateJump()
     {
         // Jump if: grounded or within coyote threshold || sufficient jump buffer
         if (HasBufferedJump)
         {
-            SetJump();
+            if (Grounded)
+            {
+                SetJump();
+            }
+            else if (wallSliding)
+            {
+                SetWallJump();
+            }
         }
-
 
         if (_colUp)
         {
@@ -449,25 +452,26 @@ public class PlayerMovement : MonoBehaviour
     #region Wall Jump
 
     [Header("Wall Jump")]
-    [SerializeField]
-    private float wallJumpDistance = 30f;
+    [SerializeField] private float wallJumpDistance = 30f;
     private float lastTimeWallJumped = 0f;
-    [SerializeField]
-    private float wallJumpTimeThreshold = 1f;
+    [SerializeField] private float wallJumpTimeThreshold = 1f;
     private bool WallJumping => timeSinceLastWallJump < wallJumpTimeThreshold;
     private float timeSinceLastWallJump => Time.time - lastTimeWallJumped;
     private float timeLeftWallSliding = int.MinValue;
+    [SerializeField] private float wallJumpBuffer = 0.1f;
+    private bool HasBufferedWallJump => (_colLeft || _colRight) && _lastJumpPressed + wallJumpBuffer > Time.time;
 
-    [SerializeField]
-    private float wallCoyoteTimeThreshold = 0.1f;
+    [SerializeField] private float wallCoyoteTimeThreshold = 0.1f;
     private bool CanUseWallCoyote => !WallJumping && !(_colLeft || _colRight) && timeLeftWallSliding + wallCoyoteTimeThreshold > Time.time;
 
     private void SetWallJump()
     {
+        wallSliding = false;
         _currentHorizontalSpeed = wallJumpDistance * (lastWallWasLeft ? 1f : -1f);
         lastTimeWallJumped = Time.time;
         changeFacingDirection();
         updateFacing();
+        SetJump();
     }
 
     #endregion
