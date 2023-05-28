@@ -1,12 +1,14 @@
 using UnityEngine;
 
-public class GoombaMovement : Enemy
+public class SimpleMonster : Enemy
 {
-    [SerializeField] private bool movingDirection = false;
+    [SerializeField] protected bool movingDirection = false;
     [SerializeField] float speed;
 
     [SerializeField] private DetectionCollider playerDetector;
     [SerializeField] private DetectionCollider wallDetector;
+
+    private SpriteRenderer spriteRenderer;
     [Range(0, 1)][SerializeField] private float eyeHightPercentage = 0.8f;
 
 
@@ -17,7 +19,7 @@ public class GoombaMovement : Enemy
         //Create event listeners 
         //implement onTriggerDetectionEvent methods
 
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        SetSpriteRenderer();
 
         playerDetector.onTriggerDetectionEvent += (x =>
         {
@@ -28,7 +30,7 @@ public class GoombaMovement : Enemy
 
                 if (player.transform.position.y > eyeHight)
                 {
-                    KillGoomba();
+                    KillSimpleMonster();
                 }
                 else
                 {
@@ -37,11 +39,7 @@ public class GoombaMovement : Enemy
             }
         });
 
-        wallDetector.onTriggerDetectionEvent += (x =>
-        {
-            movingDirection = !movingDirection;
-            spriteRenderer.flipX = !spriteRenderer.flipX;
-        });
+        SetWallDetector();
     }
 
     // Update is called once per frame
@@ -50,13 +48,26 @@ public class GoombaMovement : Enemy
         transform.Translate(((movingDirection ? -1 : 1) * Vector3.left * Time.deltaTime * speed));
     }
 
-
-    public override void Hit(Vector3 hitPoint, GameObject target, DamageDealer weapon)
+    public void SetSpriteRenderer()
     {
-        KillGoomba();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+    public void SetWallDetector()
+    {
+        wallDetector.onTriggerDetectionEvent += (x => ChangeMovingDirection());
     }
 
-    public void KillGoomba()
+    public virtual void ChangeMovingDirection()
+    {
+        movingDirection = !movingDirection;
+        spriteRenderer.flipX = !spriteRenderer.flipX;
+    }
+    public override void Hit(Vector3 hitPoint, GameObject target, DamageDealer weapon)
+    {
+        KillSimpleMonster();
+    }
+
+    public void KillSimpleMonster()
     {
         Destroy(this.gameObject);
     }
