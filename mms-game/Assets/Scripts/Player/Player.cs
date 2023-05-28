@@ -67,6 +67,10 @@ public class Player : MonoBehaviour, Hittable
 
     public void Hit(Vector3 hitPoint, Collider2D collider, DamageDealer weapon)
     {
+        Hit();
+    }
+
+    public void Hit(){
         TpToLastCheckPoint();
     }
 }
