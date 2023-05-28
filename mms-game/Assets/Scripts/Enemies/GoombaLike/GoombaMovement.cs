@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GoombaMovement : Enemy
 {
-    private bool movingDirection = false;
+    [SerializeField] private bool movingDirection = false;
     [SerializeField] float speed;
 
     // Update is called once per frame
@@ -31,5 +31,10 @@ public class GoombaMovement : Enemy
             Destroy(this.gameObject);
         }
 
+    }
+
+    public override void Hit(Vector3 hitPoint, Collider2D collider, DamageDealer weapon)
+    {
+       Destroy(this.gameObject);
     }
 }
