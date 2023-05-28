@@ -8,7 +8,6 @@ public class GoombaMovement : Enemy
     [SerializeField] private DetectionCollider killPlayer;
     [SerializeField] private DetectionCollider wallDetector;
     [SerializeField] private DetectionCollider killGoomba;
-    [SerializeField] private SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
@@ -16,7 +15,7 @@ public class GoombaMovement : Enemy
         //Create event listeners 
         //implement onTriggerDetectionEvent methods
 
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
         killPlayer.onTriggerDetectionEvent += (x =>
         {
