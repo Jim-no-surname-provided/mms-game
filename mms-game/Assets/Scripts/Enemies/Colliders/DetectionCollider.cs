@@ -11,4 +11,5 @@ public class DetectionCollider : MonoBehaviour
         DIE_FROM_PLAYER
     }
     public TypeOfDetection typeOfDetection { get; private set; }
+
 }
