@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class DetectionCollider : MonoBehaviour
 {
-    public delegate void OnTriggerDetectionEvent();
+    public delegate void OnTriggerDetectionEvent(GameObject other);
     public OnTriggerDetectionEvent onTriggerDetectionEvent;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        onTriggerDetectionEvent();
+        onTriggerDetectionEvent(other.gameObject);
     }
 }
