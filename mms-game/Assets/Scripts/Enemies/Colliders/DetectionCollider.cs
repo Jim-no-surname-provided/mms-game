@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class DetectionCollider : MonoBehaviour
 {
-    public enum TypeOfDetection
+    public delegate void OnTriggerDetectionEvent();
+    public OnTriggerDetectionEvent onTriggerDetectionEvent;
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        WALL_DETECTION,
-        KILL_PLAYER,
-        DIE_FROM_PLAYER
+        onTriggerDetectionEvent();
     }
-    public TypeOfDetection typeOfDetection { get; private set; }
 }

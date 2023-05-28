@@ -8,7 +8,7 @@ public class CheckPoint : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            other.GetComponent<Player>().setCheckPoint(transform.position);
+            other.GetComponent<Player>().SetCheckPoint(transform.position);
         }
     }
 

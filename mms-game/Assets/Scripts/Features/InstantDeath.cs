@@ -8,7 +8,7 @@ public class InstantDeath : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            other.GetComponent<Player>().tpToLastCheckPoint();
+            other.GetComponent<Player>().TpToLastCheckPoint();
         }
     }
 }

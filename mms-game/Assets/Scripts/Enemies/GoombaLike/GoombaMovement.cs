@@ -17,7 +17,7 @@ public class GoombaMovement : Enemy
     {
         if (collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<Player>().tpToLastCheckPoint(); //kill player 
+            collision.gameObject.GetComponent<Player>().TpToLastCheckPoint(); //kill player 
         }
         else if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Enemy" )
         {

@@ -32,10 +32,17 @@ public class Player : MonoBehaviour, Hittable
         fireAction.started += (context) => currentWeapon.Use(angle);
         mouseAction.performed += SetPointerPosition;
     }
+    private Vector2 screenPos;
 
     private void SetPointerPosition(CallbackContext context)
     {
         Vector2 screenPos = context.ReadValue<Vector2>();
+        screenPos = context.ReadValue<Vector2>();
+        UpdateCursor();
+    }
+
+    public void UpdateCursor()
+    {
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y));
         // TODO if there is a Crosshair, move it to there
 
@@ -47,12 +54,12 @@ public class Player : MonoBehaviour, Hittable
     #region Checkpoints
     [SerializeField]
     private Vector3 lastCheckPoint = Vector3.zero;
-    public void tpToLastCheckPoint() // TODO Change names 
+    public void TpToLastCheckPoint()
     {
         transform.position = lastCheckPoint;
     }
 
-    public void setCheckPoint(Vector3 checkPointPos) // TODO Change names 
+    public void SetCheckPoint(Vector3 checkPointPos)
     {
         lastCheckPoint = checkPointPos;
     }
@@ -61,6 +68,6 @@ public class Player : MonoBehaviour, Hittable
 
     public void Hit(Vector3 hitPoint, Collider2D collider, DamageDealer weapon)
     {
-        throw new System.NotImplementedException(); // TODO
+        TpToLastCheckPoint();
     }
 }
