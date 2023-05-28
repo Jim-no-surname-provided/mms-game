@@ -10,5 +10,5 @@ public class DetectionCollider : MonoBehaviour
         KILL_PLAYER,
         DIE_FROM_PLAYER
     }
-    public TypeOfDetection typeOfDetection;
+    public TypeOfDetection typeOfDetection { get; private set; }
 }
