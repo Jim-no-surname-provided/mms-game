@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour, Hittable
+public abstract class Enemy : MonoBehaviour, Hittable, DamageDealer
 {
     // Start is called before the first frame update
     void Start()
@@ -17,5 +17,5 @@ public abstract class Enemy : MonoBehaviour, Hittable
     }
 
     //what to do incase enemy is hit with a weapon
-    public abstract void Hit(Vector3 hitPoint, Collider2D collider, DamageDealer weapon);
+    public abstract void Hit(Vector3 hitPoint, GameObject target, DamageDealer weapon);
 }

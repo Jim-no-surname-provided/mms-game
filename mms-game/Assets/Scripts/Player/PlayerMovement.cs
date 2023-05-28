@@ -30,8 +30,8 @@ public class PlayerMovement : MonoBehaviour
         jumpAction.canceled += CancelJump;
 
         // Update bounds to size
-        _characterBounds.size = spriteRenderer.sprite.bounds.size - Vector3.one * _detectionRayLength;
-        _characterBounds.center = new Vector3(0, spriteRenderer.sprite.bounds.size.y / 2, 0);
+        _characterBounds.size = spriteRenderer.bounds.size - Vector3.one * _detectionRayLength;
+        _characterBounds.center = new Vector3(0, spriteRenderer.bounds.size.y / 2, 0);
     }
 
     // Public for external hooks

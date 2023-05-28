@@ -65,7 +65,7 @@ public class Player : MonoBehaviour, Hittable
 
     #endregion
 
-    public void Hit(Vector3 hitPoint, Collider2D collider, DamageDealer weapon)
+    public void Hit(Vector3 hitPoint, GameObject target, DamageDealer weapon)
     {
         Hit();
     }

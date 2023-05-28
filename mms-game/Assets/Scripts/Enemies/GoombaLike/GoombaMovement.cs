@@ -5,10 +5,11 @@ public class GoombaMovement : Enemy
     [SerializeField] private bool movingDirection = false;
     [SerializeField] float speed;
 
-    [SerializeField] private DetectionCollider killPlayer;
+    [SerializeField] private DetectionCollider playerDetector;
     [SerializeField] private DetectionCollider wallDetector;
-    [SerializeField] private DetectionCollider killGoomba;
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    [Range(0, 1)][SerializeField] private float eyeHightPercentage = 0.8f;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -16,14 +17,23 @@ public class GoombaMovement : Enemy
         //Create event listeners 
         //implement onTriggerDetectionEvent methods
 
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
-        killPlayer.onTriggerDetectionEvent += (x =>
+        playerDetector.onTriggerDetectionEvent += (x =>
         {
             Player player = x.GetComponent<Player>();
             if (player != null)
             {
-                player.Hit();
+                float eyeHight = transform.position.y + spriteRenderer.bounds.size.y * eyeHightPercentage;
+
+                if (player.transform.position.y > eyeHight)
+                {
+                    KillGoomba();
+                }
+                else
+                {
+                    player.Hit();
+                }
             }
         });
 
@@ -32,17 +42,6 @@ public class GoombaMovement : Enemy
             movingDirection = !movingDirection;
             spriteRenderer.flipX = !spriteRenderer.flipX;
         });
-
-        killGoomba.onTriggerDetectionEvent += (x =>
-        {
-            Player player = x.GetComponent<Player>();
-            if (player != null)
-            {
-                KillGoomba();
-            }
-        });
-
-
     }
 
     // Update is called once per frame
@@ -52,7 +51,7 @@ public class GoombaMovement : Enemy
     }
 
 
-    public override void Hit(Vector3 hitPoint, Collider2D collider, DamageDealer weapon)
+    public override void Hit(Vector3 hitPoint, GameObject target, DamageDealer weapon)
     {
         KillGoomba();
     }
@@ -62,25 +61,3 @@ public class GoombaMovement : Enemy
         Destroy(this.gameObject);
     }
 }
-/*  void OnCollisionEnter2D(Collision2D collision)
- {
-     if (collision.gameObject.tag == "Player")
-     {
-         collision.gameObject.GetComponent<Player>().tpToLastCheckPoint(); //kill player 
-     }
-     else if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Enemy" )
-     {
-         movingDirection = !movingDirection;
-     }
- }  */
-
-/*
-void OnTriggerEnter2D(Collider2D trigger){
-    if (trigger.gameObject.GetComponent<DetectionCollider>().typeOfDetection == DetectionCollider.TypeOfDetection.DIE_FROM_PLAYER)
-    {
-        Destroy(this.gameObject); //kill Goomba
-    }
-
-}
-*/
-

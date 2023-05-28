@@ -23,11 +23,11 @@ public abstract class Projectile : MonoBehaviour, DamageDealer
         Hittable hittableInChild = o.GetComponentInChildren<Hittable>();
         if (hittableInParent != null)
         {
-            hittableInParent.Hit(transform.position, o.GetComponent<Collider2D>(), this);
+            hittableInParent.Hit(transform.position, o, this);
         }
         else if (hittableInChild != null)
         {
-            hittableInChild.Hit(transform.position, o.GetComponent<Collider2D>(), this);
+            hittableInChild.Hit(transform.position, o, this);
         }
     }
 
