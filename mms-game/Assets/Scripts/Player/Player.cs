@@ -36,7 +36,6 @@ public class Player : MonoBehaviour, Hittable
 
     private void SetPointerPosition(CallbackContext context)
     {
-        Vector2 screenPos = context.ReadValue<Vector2>();
         screenPos = context.ReadValue<Vector2>();
         UpdateCursor();
     }
@@ -47,7 +46,7 @@ public class Player : MonoBehaviour, Hittable
         // TODO if there is a Crosshair, move it to there
 
         // It's negative because I don't know
-        angle = -Vector2.SignedAngle(worldPos - transform.position, Vector2.right);
+        angle = -Vector2.SignedAngle(worldPos - weaponPivot.position, Vector2.right);
         weaponPivot.rotation = Quaternion.Euler(0, 0, angle);
     }
 
