@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3045098115245928375}
   - component: {fileID: 7709071948946964607}
   - component: {fileID: 619163807875694539}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: KillPlayerCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,6 +249,7 @@ MonoBehaviour:
   killPlayer: {fileID: 7709071948946964607}
   wallDetector: {fileID: 2688523924985924050}
   killGoomba: {fileID: 4287407259260536851}
+  spriteRenderer: {fileID: 0}
 --- !u!61 &409507012714140822
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -273,7 +274,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 20, y: 23.953217}
+  m_Size: {x: 36.17524, y: 28.648932}
   m_EdgeRadius: 0
 --- !u!50 &8622908843819578880
 Rigidbody2D:
@@ -307,7 +308,7 @@ GameObject:
   - component: {fileID: 7665078972344299710}
   - component: {fileID: 4287407259260536851}
   - component: {fileID: 6197768720348732429}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: KillGoombaCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

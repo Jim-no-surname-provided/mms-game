@@ -28,6 +28,10 @@ public class PlayerMovement : MonoBehaviour
         movement1dAction.canceled += CancelX;
         jumpAction.started += StartJump;
         jumpAction.canceled += CancelJump;
+
+        // Update bounds to size
+        _characterBounds.size = spriteRenderer.sprite.bounds.size - Vector3.one * _detectionRayLength;
+        _characterBounds.center = new Vector3(0, spriteRenderer.sprite.bounds.size.y / 2, 0);
     }
 
     // Public for external hooks
