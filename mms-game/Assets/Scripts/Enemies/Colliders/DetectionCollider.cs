@@ -11,4 +11,8 @@ public class DetectionCollider : MonoBehaviour
     {
         onTriggerDetectionEvent(other.gameObject);
     }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        onTriggerDetectionEvent(other.gameObject);
+    }
 }

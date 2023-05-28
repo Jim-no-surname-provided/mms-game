@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4704500952226885056}
   - component: {fileID: 978407394337264619}
   - component: {fileID: 6501316703341340649}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: WallDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.066013575, y: 0.37764776}
+  m_Offset: {x: -0.04283166, y: 0.37764788}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -57,7 +57,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.6180215, y: 4.1610575}
+  m_Size: {x: 4.5716577, y: 4.1610575}
   m_EdgeRadius: 0
 --- !u!114 &6501316703341340649
 MonoBehaviour:
@@ -82,7 +82,7 @@ GameObject:
   - component: {fileID: 948533309365358981}
   - component: {fileID: 6766202882723363650}
   - component: {fileID: 8858124396018056888}
-  m_Layer: 12
+  m_Layer: 11
   m_Name: WeakPointDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,8 +152,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1614753914574660500}
   - component: {fileID: 1483341664117412263}
-  - component: {fileID: 7223912733560345839}
-  m_Layer: 12
+  - component: {fileID: 4258489471815464581}
+  m_Layer: 11
   m_Name: 'ShieldDetector '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,10 +185,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.1050804, y: 0.15455425}
+  m_Offset: {x: -1.0814058, y: 0.15455437}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -199,9 +199,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.2551732, y: 4.5597477}
+  m_Size: {x: 2.207824, y: 4.5597477}
   m_EdgeRadius: 0
---- !u!114 &7223912733560345839
+--- !u!114 &4258489471815464581
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -225,8 +225,8 @@ GameObject:
   - component: {fileID: 4402617113700920057}
   - component: {fileID: 1196789652321907543}
   - component: {fileID: 2139865342}
-  - component: {fileID: 2139865345}
-  m_Layer: 12
+  - component: {fileID: 4786106607707295765}
+  m_Layer: 13
   m_Name: ShieldedSimpleMonster
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -316,12 +316,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movingDirection: 0
-  speed: 0
+  speed: 2
   playerDetector: {fileID: 0}
   wallDetector: {fileID: 6501316703341340649}
   eyeHightPercentage: 0.8
-  shieldDetector: {fileID: 8858124396018056888}
-  weakPointDetector: {fileID: 7223912733560345839}
+  shieldDetector: {fileID: 4258489471815464581}
+  weakPointDetector: {fileID: 8858124396018056888}
 --- !u!50 &2139865342
 Rigidbody2D:
   serializedVersion: 4
@@ -343,7 +343,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &2139865345
+--- !u!61 &4786106607707295765
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -356,7 +356,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.10058451, y: 0.053272128}
+  m_Offset: {x: 0.2281068, y: 0.053272247}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -367,5 +367,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.598831, y: 5.083456}
+  m_Size: {x: 4.3437867, y: 5.083456}
   m_EdgeRadius: 0

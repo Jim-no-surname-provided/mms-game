@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3045098115245928375}
   - component: {fileID: 7709071948946964607}
   - component: {fileID: 619163807875694539}
-  m_Layer: 12
+  m_Layer: 11
   m_Name: PlayerDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,7 +82,7 @@ GameObject:
   - component: {fileID: 7293540236898178517}
   - component: {fileID: 95035456181310224}
   - component: {fileID: 2688523924985924050}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: WallDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 8622908843819578887}
   - component: {fileID: 409507012714140822}
   - component: {fileID: 8622908843819578880}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: SimpleMonster
   m_TagString: Enemy
   m_Icon: {fileID: 0}

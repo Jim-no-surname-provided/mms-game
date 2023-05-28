@@ -8,10 +8,11 @@ public class ShieldedSimpleMonster : SimpleMonster
     // Start is called before the first frame update
     void Start()
     {
-       // SetSpriteRenderer();
+        // SetSpriteRenderer();
 
         weakPointDetector.onTriggerDetectionEvent += (x =>
         {
+            Debug.Log("Trigger detection: Weak point");
             Player player = x.GetComponent<Player>();
             if (player != null)
             {
@@ -21,6 +22,7 @@ public class ShieldedSimpleMonster : SimpleMonster
 
         shieldDetector.onTriggerDetectionEvent += (x =>
         {
+            Debug.Log("Trigger detection: Shield");
             Player player = x.GetComponent<Player>();
             if (player != null)
             {
@@ -34,7 +36,7 @@ public class ShieldedSimpleMonster : SimpleMonster
     public override void ChangeMovingDirection()
     {
         movingDirection = !movingDirection;
-        transform.localScale = new Vector3(transform.localScale.x * -1 ,transform.localScale.y, transform.localScale.z );
+        transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
     }
 
 }

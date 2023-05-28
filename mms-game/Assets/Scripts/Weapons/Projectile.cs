@@ -36,10 +36,15 @@ public abstract class Projectile : MonoBehaviour, DamageDealer
         Destroy(gameObject);
     }
 
-    // The default behaviour for when on collision enter
+    // For
     protected virtual void OnCollisionEnter2D(Collision2D c)
     {
-        HitOther(c.gameObject);
+        // explode();
+    }
+
+    protected virtual void OnTriggerEnter2D(Collider2D other) {
+        Debug.Log($"Projectile entered in trigger from: {other.gameObject}");
+        HitOther(other.gameObject);
         explode();
     }
 }
