@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GoombaMovement : Enemy
@@ -14,7 +12,6 @@ public class GoombaMovement : Enemy
     // Start is called before the first frame update
     void Start() {
         //Create event listeners 
-
         //implement onTriggerDetectionEvent methods
 
         killPlayer.onTriggerDetectionEvent += (x => {
@@ -44,6 +41,16 @@ public class GoombaMovement : Enemy
         transform.Translate (((movingDirection ? -1 : 1)* Vector3.left * Time.deltaTime * speed));
     }
 
+
+    public override void Hit(Vector3 hitPoint, Collider2D collider, DamageDealer weapon)
+    {
+       KillGoomba();
+    }
+
+    public void KillGoomba (){
+        Destroy(this.gameObject);
+    }
+}
    /*  void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -66,8 +73,3 @@ public class GoombaMovement : Enemy
     }
     */
 
-    public override void Hit(Vector3 hitPoint, Collider2D collider, DamageDealer weapon)
-    {
-       Destroy(this.gameObject);
-    }
-}
