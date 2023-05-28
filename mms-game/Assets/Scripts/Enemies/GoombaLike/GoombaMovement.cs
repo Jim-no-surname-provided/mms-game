@@ -17,7 +17,7 @@ public class GoombaMovement : Enemy
         killPlayer.onTriggerDetectionEvent += (x => {
             Player player = x.GetComponent<Player>();
             if (player != null){
-                player.TpToLastCheckPoint(); 
+                player.Hit(); 
             }
         });
 
@@ -28,7 +28,7 @@ public class GoombaMovement : Enemy
         killGoomba.onTriggerDetectionEvent += (x => {
             Player player = x.GetComponent<Player>();
             if (player != null){
-                Destroy(this.gameObject);
+                KillGoomba();
             }
         });
 

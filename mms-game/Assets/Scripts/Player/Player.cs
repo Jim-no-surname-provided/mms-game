@@ -71,6 +71,7 @@ public class Player : MonoBehaviour, Hittable
     }
 
     public void Hit(){
+        Debug.Log("Oooops you are dead :( \n Going to last Check point");
         TpToLastCheckPoint();
     }
 }
