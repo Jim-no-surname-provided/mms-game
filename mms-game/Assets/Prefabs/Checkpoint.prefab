@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4021606210917745493}
   - component: {fileID: 4021606210917745492}
   - component: {fileID: 4021606210917745489}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4021606211340306411}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Checkpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
