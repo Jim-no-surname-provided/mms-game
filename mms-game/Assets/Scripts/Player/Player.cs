@@ -8,16 +8,15 @@ public class Player : MonoBehaviour, Hittable
 {
 
     // This will change, but each one will be a weapon
-    [SerializeField]
-    private Weapon currentWeapon;
+    [SerializeField] private Weapon currentWeapon;
 
     // This is the father of the weapons, and will be rotated instead of every Weapon individually
-    [SerializeField]
-    private Transform weaponPivot;
+    [SerializeField] private Transform weaponPivot;
 
     // These two are for the input
     private PlayerInput playerInput;
     private InputAction fireAction;
+    private InputAction resetAction;
     private InputAction mouseAction;
 
     // This will be used to point the weapon towards the mouse
@@ -27,10 +26,15 @@ public class Player : MonoBehaviour, Hittable
     {
         // Input listening and firing
         playerInput = GetComponent<PlayerInput>();
+
         fireAction = playerInput.actions["Fire"];
         mouseAction = playerInput.actions["MousePos"];
-        fireAction.started += (context) => currentWeapon.Use(angle);
+        resetAction = playerInput.actions["Reset"];
+
+
+        fireAction.started += context => currentWeapon.Use(angle);
         mouseAction.performed += SetPointerPosition;
+        resetAction.started += context => Die();
     }
     private Vector2 screenPos;
 
@@ -50,6 +54,11 @@ public class Player : MonoBehaviour, Hittable
         weaponPivot.rotation = Quaternion.Euler(0, 0, angle);
     }
 
+    public void flip()
+    {
+
+    }
+
     #region Checkpoints
     [SerializeField]
     private Vector3 lastCheckPoint = Vector3.zero;
@@ -65,13 +74,21 @@ public class Player : MonoBehaviour, Hittable
 
     #endregion
 
+    #region Hit
+
     public void Hit(Vector3 hitPoint, GameObject target, DamageDealer weapon)
     {
         Hit();
     }
+    public void Hit()
+    {
+        Die();
+    }
 
-    public void Hit(){
+    private void Die()
+    {
         Debug.Log("Oooops you are dead :( \n Going to last Check point");
         TpToLastCheckPoint();
     }
+    #endregion
 }
