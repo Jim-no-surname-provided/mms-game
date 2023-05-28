@@ -487,4 +487,5 @@ public class PlayerMovement : MonoBehaviour
         public readonly Vector2 Start, End, Dir;
 
     }
+
 }
