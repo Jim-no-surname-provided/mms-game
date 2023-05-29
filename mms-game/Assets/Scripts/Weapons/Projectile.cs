@@ -47,15 +47,9 @@ public abstract class Projectile : MonoBehaviour, DamageDealer
 
     public void Bounce()
     {
-        Debug.DrawRay(transform.position, transform.right, Color.magenta, 10f);
         RaycastHit2D ray = Physics2D.Raycast(transform.position, transform.right, 2f, surfaceToBounceOf);
-        // ray.normal
         float angle = Vector2.SignedAngle(-transform.right, ray.normal);
-        Debug.DrawRay(ray.point, ray.normal, Color.yellow, 10f);
-        Debug.Log($"angle is {angle}, normal is {ray.normal}, right is {transform.right}");
-
         transform.Rotate(Vector3.forward * (180 + angle * 2));
-
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D other)

@@ -36,12 +36,15 @@ public class Player : MonoBehaviour, Hittable
         mouseAction.performed += SetPointerPosition;
         resetAction.started += context => Die();
     }
+
+    private void Update() {
+        UpdateCursor();
+    }
     private Vector2 screenPos;
 
     private void SetPointerPosition(CallbackContext context)
     {
         screenPos = context.ReadValue<Vector2>();
-        UpdateCursor();
     }
 
     public void UpdateCursor()

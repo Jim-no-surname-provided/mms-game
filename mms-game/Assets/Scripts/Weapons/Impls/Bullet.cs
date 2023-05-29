@@ -17,5 +17,4 @@ public class Bullet : Projectile
     {
         transform.Translate(speed * Time.deltaTime, 0, 0);
     }
-
 }
