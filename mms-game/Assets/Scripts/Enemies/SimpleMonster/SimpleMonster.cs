@@ -14,7 +14,7 @@ public class SimpleMonster : Enemy
 
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         //Create event listeners 
         //implement onTriggerDetectionEvent methods
@@ -43,7 +43,7 @@ public class SimpleMonster : Enemy
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         transform.Translate(((movingDirection ? -1 : 1) * Vector3.left * Time.deltaTime * speed));
     }

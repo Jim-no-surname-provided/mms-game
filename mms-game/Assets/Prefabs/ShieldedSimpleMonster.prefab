@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4704500952226885056}
   - component: {fileID: 978407394337264619}
   - component: {fileID: 6501316703341340649}
-  m_Layer: 14
+  m_Layer: 10
   m_Name: WallDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.04283166, y: 0.37764788}
+  m_Offset: {x: 0.002942562, y: 0.34994102}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -57,7 +57,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.5716577, y: 4.1610575}
+  m_Size: {x: 4.715519, y: 4.105644}
   m_EdgeRadius: 0
 --- !u!114 &6501316703341340649
 MonoBehaviour:
@@ -188,7 +188,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.0814058, y: 0.15455437}
+  m_Offset: {x: -1.12718, y: 0.15455437}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -199,7 +199,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.207824, y: 4.5597477}
+  m_Size: {x: 2.2993724, y: 4.5597477}
   m_EdgeRadius: 0
 --- !u!114 &4258489471815464581
 MonoBehaviour:
@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 1196789652321907543}
   - component: {fileID: 2139865342}
   - component: {fileID: 4786106607707295765}
-  m_Layer: 14
+  m_Layer: 13
   m_Name: ShieldedSimpleMonster
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -356,7 +356,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.2281068, y: 0.053272247}
+  m_Offset: {x: -0.0073034763, y: 0.053272247}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -367,5 +367,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.3437867, y: 5.083456}
+  m_Size: {x: 4.5268855, y: 5.083456}
   m_EdgeRadius: 0
