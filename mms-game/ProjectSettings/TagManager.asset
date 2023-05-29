@@ -14,13 +14,13 @@ TagManager:
   - UI
   - Ground
   - PlayerProjectile
-  - Hittable
+  - EnemyProjectile
   - Player
-  - ExternProjectile
-  - OnlyDetectPlayer
-  - Enemy
-  - IgnorePlayer
   - 
+  - DetectPlayer
+  - DetectPlayerAndDamageDealers
+  - IgnorePlayer
+  - IgnorePlayerAndDamageDealers
   - 
   - 
   - 

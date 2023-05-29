@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4704500952226885056}
   - component: {fileID: 978407394337264619}
   - component: {fileID: 6501316703341340649}
-  m_Layer: 13
+  m_Layer: 14
   m_Name: WallDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,7 +82,7 @@ GameObject:
   - component: {fileID: 948533309365358981}
   - component: {fileID: 6766202882723363650}
   - component: {fileID: 8858124396018056888}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: WeakPointDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,7 +153,7 @@ GameObject:
   - component: {fileID: 1614753914574660500}
   - component: {fileID: 1483341664117412263}
   - component: {fileID: 4258489471815464581}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: 'ShieldDetector '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
