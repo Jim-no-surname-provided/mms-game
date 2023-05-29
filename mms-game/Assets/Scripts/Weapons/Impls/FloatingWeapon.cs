@@ -10,5 +10,6 @@ public class FloatingWeapon : MonoBehaviour
         Player p = other.GetComponent<Player>();
 
         p.addWeapon(weaponPrefab);
+        Destroy(gameObject);
     }
 }

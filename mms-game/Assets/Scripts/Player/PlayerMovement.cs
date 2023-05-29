@@ -374,8 +374,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("MOVE")]
     [SerializeField, Tooltip("Raising this value increases collision accuracy at the cost of performance.")]
     private int _freeColliderIterations = 10;
-    [SerializeField] private bool tryingThePosibleSolution = false;
-
     // We cast our bounds before moving to avoid future collisions
     private void MoveCharacter()
     {
@@ -419,11 +417,7 @@ public class PlayerMovement : MonoBehaviour
 
             positionToMoveTo = posToTry;
         }
-        if (tryingThePosibleSolution)
-        {
-            Debug.Log("The weird bug, maybe");
-            Corner(move, hit);
-        }
+        Corner(move, hit);
     }
 
     private void Corner(Vector3 move, RaycastHit2D hit)
