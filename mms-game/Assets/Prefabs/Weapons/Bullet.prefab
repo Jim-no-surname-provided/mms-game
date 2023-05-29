@@ -159,6 +159,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeLength: 5
+  surfaceToBounceOf:
+    serializedVersion: 2
+    m_Bits: 2423
   speed: 10
 --- !u!50 &-2405455187091738677
 Rigidbody2D:

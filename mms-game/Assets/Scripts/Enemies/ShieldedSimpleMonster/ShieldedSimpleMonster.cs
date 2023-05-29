@@ -12,7 +12,6 @@ public class ShieldedSimpleMonster : SimpleMonster
 
         weakPointDetector.onTriggerDetectionEvent += (x =>
         {
-            Debug.Log("Trigger detection: Weak point");
             Player player = x.GetComponent<Player>();
             if (player != null)
             {
@@ -22,7 +21,6 @@ public class ShieldedSimpleMonster : SimpleMonster
 
         shieldDetector.onTriggerDetectionEvent += (x =>
         {
-            Debug.Log("Trigger detection: Shield");
             Player player = x.GetComponent<Player>();
             if (player != null)
             {
