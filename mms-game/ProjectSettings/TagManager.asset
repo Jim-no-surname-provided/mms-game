@@ -13,15 +13,15 @@ TagManager:
   - Water
   - UI
   - Ground
-  - PlayerProjectile
-  - EnemyProjectile
+  - Player Projectile
+  - Enemy Projectile
   - Player
-  - 
-  - DetectPlayer
-  - DetectPlayerAndDamageDealers
-  - IgnorePlayer
-  - IgnorePlayerAndDamageDealers
-  - 
+  - Detect Walls
+  - Detect Player
+  - Detect Player & Damage Dealers
+  - Ignore Player
+  - Ignore Player & Damage Dealers
+  - Detect Player & Player Projectiles
   - 
   - 
   - 
