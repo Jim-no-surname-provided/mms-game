@@ -4,6 +4,7 @@ using UnityEngine;
 public class MonsterWithGun : SimpleMonster
 {
     [SerializeField] private Gun gun;
+    [SerializeField] private float shootingInterval = 3f; 
     private Coroutine shootCoroutine;
 
     protected override void Start() 
@@ -16,9 +17,16 @@ public class MonsterWithGun : SimpleMonster
     {
         while (true)
         {
-            gun.Use(0);
-            yield return new WaitForSeconds(2f);
+            gun.Use(movingDirection ? 0: 180);
+            yield return new WaitForSeconds(shootingInterval);
         }
+    }
+
+    public override void ChangeMovingDirection()
+    {
+        movingDirection = !movingDirection;
+        //spriteRenderer.flipX = !spriteRenderer.flipX;
+        transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
     }
 
     private void OnDestroy()

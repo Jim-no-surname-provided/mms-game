@@ -106,7 +106,7 @@ MonoBehaviour:
   speed: 2
   playerDetector: {fileID: 208725682588111522}
   wallDetector: {fileID: 8969211271488389059}
-  eyeHightPercentage: 0.8
+  eyeHightPercentage: 0.211
   gun: {fileID: 2063464670657788356}
 --- !u!50 &2362161954358231559
 Rigidbody2D:
@@ -350,7 +350,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.4060986, y: -0.046425104}
+  m_Offset: {x: 0.4060986, y: 0.12873483}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -361,7 +361,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.1050777, y: 2.2070527}
+  m_Size: {x: 3.1050777, y: 2.5573726}
   m_EdgeRadius: 0
 --- !u!114 &208725682588111522
 MonoBehaviour:

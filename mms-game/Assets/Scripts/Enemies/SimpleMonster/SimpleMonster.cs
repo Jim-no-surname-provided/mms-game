@@ -8,8 +8,8 @@ public class SimpleMonster : Enemy
     [SerializeField] private DetectionCollider playerDetector;
     [SerializeField] private DetectionCollider wallDetector;
 
-    private SpriteRenderer spriteRenderer;
-    [Range(0, 1)][SerializeField] private float eyeHightPercentage = 0.8f;
+    protected SpriteRenderer spriteRenderer;
+    [Range(0, 1)][SerializeField] private float eyeHightPercentage = 0.25f;
 
 
 
