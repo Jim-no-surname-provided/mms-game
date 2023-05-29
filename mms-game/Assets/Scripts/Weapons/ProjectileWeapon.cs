@@ -17,6 +17,7 @@ public abstract class ProjectileWeapon : Weapon
     public override void Use(float angle)
     {
         Projectile pr = GetProjectile().GetComponent<Projectile>();
+        pr.gameObject.layer = gameObject.layer;
         pr.PointTo(angle);
         pr.transform.position = GetFirePosition();
         pr.gameObject.SetActive(true);
