@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Player))]
 public class PlayerMovement : MonoBehaviour
 {
 
@@ -18,7 +19,8 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         // Get References;
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        player = GetComponent<Player>();
         playerInput = GetComponent<PlayerInput>();
         jumpAction = playerInput.actions["Jump"];
         movement1dAction = playerInput.actions["Movement1d"];
@@ -116,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
 
     #region Rendering - Probably will migrate into another script
     private bool facingLeft = false;
-    private SpriteRenderer spriteRenderer;
+    private Player player;
     private void updateFacing()
     {
         if (!movingPressed) // Don't do anything if nothing is pressed
@@ -133,7 +135,7 @@ public class PlayerMovement : MonoBehaviour
     private void changeFacingDirection()
     {
         facingLeft = !facingLeft;
-        spriteRenderer.flipX = facingLeft;
+        player.flip();
     }
     #endregion
 
@@ -372,6 +374,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("MOVE")]
     [SerializeField, Tooltip("Raising this value increases collision accuracy at the cost of performance.")]
     private int _freeColliderIterations = 10;
+    [SerializeField] private bool tryingThePosibleSolution = false;
 
     // We cast our bounds before moving to avoid future collisions
     private void MoveCharacter()
@@ -399,6 +402,7 @@ public class PlayerMovement : MonoBehaviour
             Vector2 posToTry = Vector2.Lerp(pos, furthestPoint, t);
 
             //// if (Physics2D.OverlapBox(posToTry, _characterBounds.size, 0, _groundLayer))
+            // // Debug.Log($"Calculating position to Move To (407) with i={i}");
             hit = Physics2D.BoxCast(posToTry, _characterBounds.size, 0, Vector2.up, 0, _groundLayer);
             if (hit)
             {
@@ -414,6 +418,11 @@ public class PlayerMovement : MonoBehaviour
             }
 
             positionToMoveTo = posToTry;
+        }
+        if (tryingThePosibleSolution)
+        {
+            Debug.Log("The weird bug, maybe");
+            Corner(move, hit);
         }
     }
 

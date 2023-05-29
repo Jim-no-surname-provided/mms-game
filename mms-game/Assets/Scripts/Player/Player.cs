@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
 
 [RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class Player : MonoBehaviour, Hittable
 {
 
@@ -25,6 +26,7 @@ public class Player : MonoBehaviour, Hittable
     private void Start()
     {
         // Input listening and firing
+        spriteRenderer = GetComponent<SpriteRenderer>();
         playerInput = GetComponent<PlayerInput>();
 
         fireAction = playerInput.actions["Fire"];
@@ -37,7 +39,9 @@ public class Player : MonoBehaviour, Hittable
         resetAction.started += context => Die();
     }
 
-    private void Update() {
+    #region cursor
+    private void Update()
+    {
         UpdateCursor();
     }
     private Vector2 screenPos;
@@ -57,10 +61,14 @@ public class Player : MonoBehaviour, Hittable
         weaponPivot.rotation = Quaternion.Euler(0, 0, angle);
     }
 
+    private SpriteRenderer spriteRenderer;
     public void flip()
     {
-
+        spriteRenderer.flipX = !spriteRenderer.flipX;
+        currentWeapon.flip();
     }
+
+    #endregion
 
     #region Checkpoints
     [SerializeField]
