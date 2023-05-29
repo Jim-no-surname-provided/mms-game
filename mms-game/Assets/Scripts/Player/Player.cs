@@ -20,6 +20,7 @@ public class Player : MonoBehaviour, Hittable
     private PlayerInput playerInput;
     private InputAction fireAction;
     private InputAction resetAction;
+    private InputAction changeWeaponAction;
     private InputAction mouseAction;
 
     // This will be used to point the weapon towards the mouse
@@ -35,10 +36,13 @@ public class Player : MonoBehaviour, Hittable
         fireAction = playerInput.actions["Fire"];
         mouseAction = playerInput.actions["MousePos"];
         resetAction = playerInput.actions["Reset"];
+        changeWeaponAction = playerInput.actions["ChangeWeapon"];
+
 
         fireAction.started += context => currentWeapon.Use(angle);
         mouseAction.performed += SetPointerPosition;
         resetAction.started += context => Die();
+        changeWeaponAction.started += context => ChangeToWeapon((int)context.ReadValue<float>());
 
         // Get weapons
         weapons = GetComponentsInChildren<Weapon>();
@@ -77,6 +81,18 @@ public class Player : MonoBehaviour, Hittable
     #endregion
 
     #region weapons
+
+    public void ChangeToWeapon(int index)
+    {
+
+        Debug.Log("The index is " + index);
+        if (index > nWeapons)
+        {
+            return;
+        }
+
+        SetCurrentWeapon(weapons[index - 1]);
+    }
     public void addWeapon(GameObject weaponPrefab)
     {
         if (!weaponPrefab.GetComponentInChildren<Weapon>())
