@@ -94,12 +94,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1786315751874362681}
+  - component: {fileID: 1786315751874362819}
+  - component: {fileID: 1786315751874362823}
   - component: {fileID: 1786315751874362680}
   - component: {fileID: 1786315751874362820}
-  - component: {fileID: 1786315751874362823}
   - component: {fileID: 1786315751874362821}
   - component: {fileID: 1786315751874362818}
-  - component: {fileID: 1786315751874362819}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -123,6 +123,62 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1786315751874362819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786315751874362682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81eb934c042d18346833605686ec7c05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentWeapon: {fileID: 1786315752787822197}
+  weapons: []
+  weaponPivot: {fileID: 1786315751844190289}
+  lastCheckPoint: {x: 0, y: 0, z: 0}
+--- !u!114 &1786315751874362823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786315751874362682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5139c66b2e622cb4aac235cb8d01bc8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterBounds:
+    m_Center: {x: 0, y: 0.95, z: 0}
+    m_Extent: {x: 0.26, y: 0.91, z: 0}
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  _detectorCount: 3
+  _detectionRayLength: 0.05
+  _rayBuffer: 0.1
+  _acceleration: 60
+  _moveClamp: 13
+  _deAcceleration: 40
+  _apexBonus: 2
+  _fallClamp: -20
+  _minFallSpeed: 40
+  _maxFallSpeed: 60
+  _jumpHeight: 20
+  _jumpApexThreshold: 15
+  _coyoteTimeThreshold: 0.1
+  _jumpBuffer: 0.1
+  _jumpEndEarlyGravityModifier: 3
+  _freeColliderIterations: 50
+  tryingThePosibleSolution: 0
+  wallSlideSpeedPercentage: 0.85
+  wallJumpDistance: 12
+  wallJumpTimeThreshold: 0.09
+  wallJumpBuffer: 0.1
+  wallCoyoteTimeThreshold: 0.1
 --- !u!212 &1786315751874362680
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -205,45 +261,6 @@ MonoBehaviour:
   m_DefaultActionMap: Land
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &1786315751874362823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1786315751874362682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5139c66b2e622cb4aac235cb8d01bc8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _characterBounds:
-    m_Center: {x: 0, y: 0.95, z: 0}
-    m_Extent: {x: 0.26, y: 0.91, z: 0}
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  _detectorCount: 3
-  _detectionRayLength: 0.05
-  _rayBuffer: 0.1
-  _acceleration: 60
-  _moveClamp: 13
-  _deAcceleration: 40
-  _apexBonus: 2
-  _fallClamp: -20
-  _minFallSpeed: 40
-  _maxFallSpeed: 60
-  _jumpHeight: 20
-  _jumpApexThreshold: 15
-  _coyoteTimeThreshold: 0.1
-  _jumpBuffer: 0.1
-  _jumpEndEarlyGravityModifier: 3
-  _freeColliderIterations: 50
-  wallSlideSpeedPercentage: 0.85
-  wallJumpDistance: 12
-  wallJumpTimeThreshold: 0.09
-  wallJumpBuffer: 0.1
-  wallCoyoteTimeThreshold: 0.1
 --- !u!61 &1786315751874362821
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -291,21 +308,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1786315751874362819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1786315751874362682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81eb934c042d18346833605686ec7c05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentWeapon: {fileID: 1786315752787822197}
-  weaponPivot: {fileID: 1786315751844190289}
-  lastCheckPoint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3727119069413834065
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -363,11 +365,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3130889861245221671, guid: d9ea370f1d6f1d141ab4edd9de97a6fe, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3130889861470125730, guid: d9ea370f1d6f1d141ab4edd9de97a6fe, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9ea370f1d6f1d141ab4edd9de97a6fe, type: 3}

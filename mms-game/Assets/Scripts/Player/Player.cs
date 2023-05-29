@@ -10,6 +10,8 @@ public class Player : MonoBehaviour, Hittable
 
     // This will change, but each one will be a weapon
     [SerializeField] private Weapon currentWeapon;
+    [SerializeField] private Weapon[] weapons;
+    private int nWeapons = 0;
 
     // This is the father of the weapons, and will be rotated instead of every Weapon individually
     [SerializeField] private Transform weaponPivot;
@@ -25,18 +27,22 @@ public class Player : MonoBehaviour, Hittable
 
     private void Start()
     {
-        // Input listening and firing
+        // Getting references
         spriteRenderer = GetComponent<SpriteRenderer>();
         playerInput = GetComponent<PlayerInput>();
 
+        // Input listening and firing
         fireAction = playerInput.actions["Fire"];
         mouseAction = playerInput.actions["MousePos"];
         resetAction = playerInput.actions["Reset"];
 
-
         fireAction.started += context => currentWeapon.Use(angle);
         mouseAction.performed += SetPointerPosition;
         resetAction.started += context => Die();
+
+        // Get weapons
+        weapons = GetComponentsInChildren<Weapon>();
+        nWeapons = weapons.Length;
     }
 
     #region cursor
@@ -65,9 +71,69 @@ public class Player : MonoBehaviour, Hittable
     public void flip()
     {
         spriteRenderer.flipX = !spriteRenderer.flipX;
-        currentWeapon.flip();
+        currentWeapon.Flip();
     }
 
+    #endregion
+
+    #region weapons
+    public void addWeapon(GameObject weaponPrefab)
+    {
+        if (!weaponPrefab.GetComponentInChildren<Weapon>())
+        {
+            return;
+        }
+
+        // This searches for the weapon inside the ones we already have
+        int weaponIndex = GetWeaponIndexIfPresent(weaponPrefab);
+        if (weaponIndex != -1)
+        {
+            SetCurrentWeapon(weapons[weaponIndex]);
+            return;
+        }
+
+
+        if (nWeapons == weapons.Length)
+        {
+            DoubleWeaponsSize();
+        }
+
+        Weapon weapon = Instantiate(weaponPrefab, weaponPivot).GetComponent<Weapon>();
+        weapons[nWeapons] = weapon;
+        nWeapons++;
+
+        SetCurrentWeapon(weapon);
+    }
+
+    private void SetCurrentWeapon(Weapon weapon)
+    {
+        currentWeapon.gameObject.SetActive(false);
+        currentWeapon = weapon;
+        weapon.gameObject.SetActive(true);
+        weapon.Flip(spriteRenderer.flipX);
+    }
+
+    private int GetWeaponIndexIfPresent(GameObject weaponPrefab)
+    {
+        for (int i = 0; i < nWeapons; i++)
+        {
+            if (weapons[i].Equals(weaponPrefab.GetComponent<Weapon>()))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void DoubleWeaponsSize()
+    {
+        Weapon[] newArray = new Weapon[weapons.Length * 2];
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            newArray[i] = weapons[i];
+        }
+        weapons = newArray;
+    }
     #endregion
 
     #region Checkpoints

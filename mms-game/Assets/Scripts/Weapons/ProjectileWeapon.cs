@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public abstract class ProjectileWeapon : Weapon
@@ -22,5 +23,29 @@ public abstract class ProjectileWeapon : Weapon
         pr.transform.position = GetFirePosition();
         pr.gameObject.SetActive(true);
         pr.Fire();
+    }
+
+    // override object.Equals
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        Gun other = (Gun)obj;
+
+        if (projectilePrefab != other.projectilePrefab)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    // override object.GetHashCode
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
     }
 }
