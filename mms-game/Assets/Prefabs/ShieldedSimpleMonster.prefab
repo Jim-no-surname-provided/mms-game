@@ -43,7 +43,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.04283166, y: 0.37764788}
@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 1196789652321907543}
   - component: {fileID: 2139865342}
   - component: {fileID: 4786106607707295765}
-  m_Layer: 13
+  m_Layer: 14
   m_Name: ShieldedSimpleMonster
   m_TagString: Enemy
   m_Icon: {fileID: 0}

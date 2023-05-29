@@ -3,7 +3,7 @@ using UnityEngine;
 public class SimpleMonster : Enemy
 {
     [SerializeField] protected bool movingDirection = false;
-    [SerializeField] float speed;
+    [SerializeField] float speed = 2.0f;
 
     [SerializeField] private DetectionCollider playerDetector;
     [SerializeField] private DetectionCollider wallDetector;
