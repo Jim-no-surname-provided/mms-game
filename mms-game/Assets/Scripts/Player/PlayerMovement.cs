@@ -399,8 +399,6 @@ public class PlayerMovement : MonoBehaviour
             float t = (float)i / _freeColliderIterations;
             Vector2 posToTry = Vector2.Lerp(pos, furthestPoint, t);
 
-            //// if (Physics2D.OverlapBox(posToTry, _characterBounds.size, 0, _groundLayer))
-            // // Debug.Log($"Calculating position to Move To (407) with i={i}");
             hit = Physics2D.BoxCast(posToTry, _characterBounds.size, 0, Vector2.up, 0, _groundLayer);
             if (hit)
             {
@@ -440,7 +438,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (wallSliding)
         {
-            // // if (((facingLeft && _colLeft) || (!facingLeft && _colRight)) && !Grounded)
             if ((_colLeft || _colRight) && !Grounded)
             {
                 _currentVerticalSpeed *= wallSlideSpeedPercentage;
