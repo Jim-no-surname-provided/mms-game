@@ -3,7 +3,6 @@ using UnityEngine;
 public abstract class Projectile : MonoBehaviour, DamageDealer
 {
     [SerializeField] private float lifeLength = 10f;
-    [SerializeField] private LayerMask surfaceToBounceOf;
 
 
     // Rotate or direct so that it points into the right direction
@@ -41,15 +40,8 @@ public abstract class Projectile : MonoBehaviour, DamageDealer
     // For
     protected virtual void OnCollisionEnter2D(Collision2D c)
     {
-        Bounce();
-        // explode();
-    }
-
-    public void Bounce()
-    {
-        RaycastHit2D ray = Physics2D.Raycast(transform.position, transform.right, 2f, surfaceToBounceOf);
-        float angle = Vector2.SignedAngle(-transform.right, ray.normal);
-        transform.Rotate(Vector3.forward * (180 + angle * 2));
+        // Bounce();
+        explode();
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D other)

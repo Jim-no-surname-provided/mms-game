@@ -11,6 +11,10 @@ public class SimpleMonster : Enemy
     protected SpriteRenderer spriteRenderer;
     [Range(0, 1)][SerializeField] private float eyeHightPercentage = 0.25f;
 
+    private bool isFrozen = false;
+    private float freezeDuration = 0f;
+    private float remainingFreezeTime = 0f;
+    
 
 
     // Start is called before the first frame update
@@ -45,7 +49,18 @@ public class SimpleMonster : Enemy
     // Update is called once per frame
     protected virtual void Update()
     {
-        transform.Translate(((movingDirection ? -1 : 1) * Vector3.left * Time.deltaTime * speed));
+        if (!isFrozen)
+        {
+            transform.Translate(((movingDirection ? -1 : 1) * Vector3.left * Time.deltaTime * speed));
+        }
+        else
+        {
+            remainingFreezeTime -= Time.deltaTime;
+            if (remainingFreezeTime <= 0f)
+            {
+                Unfreeze();
+            }
+        }
     }
 
     public void SetSpriteRenderer()
@@ -64,11 +79,34 @@ public class SimpleMonster : Enemy
     }
     public override void Hit(Vector3 hitPoint, GameObject target, DamageDealer weapon)
     {
-        KillSimpleMonster();
+        if (!(weapon is FreezingBullet))
+        {
+            KillSimpleMonster();
+        }
+        else
+        {
+            FreezingBullet freezeBullet = (FreezingBullet)weapon;
+            float bulletFreezeDuration = freezeBullet.FreezeDuration;
+            Freeze(bulletFreezeDuration);
+        }
     }
 
     public void KillSimpleMonster()
     {
         Destroy(this.gameObject);
+    }
+
+    public void Freeze(float duration)
+    {
+        isFrozen = true;
+        freezeDuration = duration;
+        remainingFreezeTime = duration;
+    }
+
+    public void Unfreeze()
+    {
+        isFrozen = false;
+        freezeDuration = 0f;
+        remainingFreezeTime = 0f;
     }
 }
