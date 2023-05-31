@@ -6,10 +6,14 @@ using UnityEngine;
 public class FloatingWeapon : MonoBehaviour
 {
     [SerializeField] private GameObject weaponPrefab;
-    private void OnTriggerEnter2D(Collider2D other) {
+    private void OnTriggerEnter2D(Collider2D other)
+    {
         Player p = other.GetComponent<Player>();
 
-        p.addWeapon(weaponPrefab);
-        Destroy(gameObject);
+        if (p != null)
+        {
+            p.addWeapon(weaponPrefab);
+            Destroy(gameObject);
+        }
     }
 }

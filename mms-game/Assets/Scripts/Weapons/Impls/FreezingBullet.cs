@@ -11,22 +11,20 @@ public class FreezingBullet : Bullet
 
     protected override void OnTriggerEnter2D(Collider2D other)
     {
-        HitOther(other.gameObject);
+        // // HitOther(other.gameObject);
 
-        if (other.CompareTag("Enemy"))
+        IFreezable freezable = other.GetComponentInChildren<IFreezable>();
+        if (freezable == null)
         {
-            Enemy enemy = other.GetComponent<Enemy>();
-            if (enemy != null)
-            {
-                IFreezable freezable = enemy as IFreezable;
-                if (freezable != null)
-                {
-                    freezable.Freeze(freezeDuration);
-                }
-            }
+            freezable = other.GetComponentInParent<IFreezable>();
+        }
+
+
+        if (freezable != null)
+        {
+            freezable.Freeze(freezeDuration);
         }
 
         explode();
     }
 }
-

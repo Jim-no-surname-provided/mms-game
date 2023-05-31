@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SimpleMonster : Enemy
+public class SimpleMonster : Enemy, IFreezable
 {
     [SerializeField] protected bool movingDirection = false;
     [SerializeField] float speed = 2.0f;
@@ -14,7 +14,7 @@ public class SimpleMonster : Enemy
     private bool isFrozen = false;
     private float freezeDuration = 0f;
     private float remainingFreezeTime = 0f;
-    
+
 
 
     // Start is called before the first frame update
@@ -79,16 +79,7 @@ public class SimpleMonster : Enemy
     }
     public override void Hit(Vector3 hitPoint, GameObject target, DamageDealer weapon)
     {
-        if (!(weapon is FreezingBullet))
-        {
-            KillSimpleMonster();
-        }
-        else
-        {
-            FreezingBullet freezeBullet = (FreezingBullet)weapon;
-            float bulletFreezeDuration = freezeBullet.FreezeDuration;
-            Freeze(bulletFreezeDuration);
-        }
+        KillSimpleMonster();
     }
 
     public void KillSimpleMonster()

@@ -17,7 +17,7 @@ public class MonsterWithGun : SimpleMonster
     {
         while (true)
         {
-            gun.Use(movingDirection ? 0: 180);
+            gun.Use(movingDirection ? 180: 0);
             yield return new WaitForSeconds(shootingInterval);
         }
     }
