@@ -2,9 +2,9 @@ using UnityEngine;
 
 public abstract class BouncingProjectile : Projectile
 {
-    [SerializeField] private LayerMask surfaceToBounceOf;
+    [SerializeField] public LayerMask surfaceToBounceOf;
 
-    public void Bounce()
+    public virtual void Bounce()
     {
         RaycastHit2D ray = Physics2D.Raycast(transform.position, transform.right, 2f, surfaceToBounceOf);
         float angle = Vector2.SignedAngle(-transform.right, ray.normal);

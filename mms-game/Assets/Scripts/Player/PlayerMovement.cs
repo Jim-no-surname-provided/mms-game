@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput playerInput;
     private InputAction jumpAction;
     private InputAction movement1dAction;
+    private InputAction dashAction;
 
 
     private void Start()
@@ -24,12 +25,15 @@ public class PlayerMovement : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         jumpAction = playerInput.actions["Jump"];
         movement1dAction = playerInput.actions["Movement1d"];
+        dashAction = playerInput.actions["Dash"];
 
         // Event Listeners
         movement1dAction.performed += UpdateX;
         movement1dAction.canceled += CancelX;
         jumpAction.started += StartJump;
         jumpAction.canceled += CancelJump;
+        dashAction.started += StartDash;
+        dashAction.canceled += StopDash;
 
         // Update bounds to size
         _characterBounds.size = spriteRenderer.bounds.size - Vector3.one * _detectionRayLength;
@@ -67,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
         CalculateGravity(); // Vertical movement
         CalculateWallSlide();
         CalculateJump(); // Possibly overrides vertical
+        CalculateDash();
 
         MoveCharacter(); // Actually perform the axis movement
     }
@@ -353,10 +358,11 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Grounded)
             {
+                hasAirDashed = false;
                 SetJump();
             }
             else if (wallSliding)
-            {
+            {   
                 SetWallJump();
             }
         }
@@ -470,6 +476,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetWallJump()
     {
+        hasAirDashed = false;
         wallSliding = false;
         _currentHorizontalSpeed = wallJumpDistance * (lastWallWasLeft ? 1f : -1f);
         lastTimeWallJumped = Time.time;
@@ -479,6 +486,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     #endregion
+
     private struct RayRange
     {
         public RayRange(float x1, float y1, float x2, float y2, Vector2 dir)
@@ -492,4 +500,65 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    #region Dash
+
+    [Header("Dash")]
+    [SerializeField] private float dashDistance = 5f;
+    [SerializeField] private float dashDuration = 0.2f;
+    private bool isDashing = false;
+    private bool hasAirDashed = false;
+    private Vector3 dashDirection;
+    private float dashTimer = 0f;
+
+    private void StartDash(InputAction.CallbackContext context)
+    {
+        if (!isDashing && movement1dAction.ReadValue<float>() != 0)
+        {
+            // Check if the player is grounded or if they have already dashed in the air
+            if (Grounded || !hasAirDashed)
+            {
+                isDashing = true;
+                dashTimer = 0f;
+
+                float inputX = movement1dAction.ReadValue<float>();
+                float inputY = 0f;
+
+                dashDirection = new Vector3(inputX, inputY).normalized;
+
+                // If dashing in the air, mark the air dash as used
+                if (!Grounded)
+                {
+                    hasAirDashed = true;
+                }
+            }
+        }
+    }
+
+    private void StopDash(InputAction.CallbackContext context)
+    {
+        if (isDashing)
+        {
+            isDashing = false;
+        }
+    }
+
+    private void CalculateDash()
+    {
+        if (isDashing)
+        {
+            dashTimer += Time.deltaTime;
+
+            if (dashTimer <= dashDuration)
+            {
+                Vector3 dashMovement = dashDirection * dashDistance * (dashDuration - dashTimer);
+                transform.position += dashMovement;
+            }
+            else
+            {
+                isDashing = false;
+            }
+        }
+    }
+
+    #endregion
 }
