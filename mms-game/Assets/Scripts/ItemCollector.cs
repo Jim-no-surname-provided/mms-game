@@ -7,7 +7,7 @@ public class ItemCollector : MonoBehaviour
 {
     private int coinCount = 0; // number of coins
 
-    [SerializeField] private Text CoinCollectionText;
+    [SerializeField] public Text coinText;
 
     private void OnTriggerEnter2D(Collider2D collision){
 
@@ -15,7 +15,7 @@ public class ItemCollector : MonoBehaviour
         {
             Destroy(collision.gameObject); // remove the coin from the scene
             coinCount++; // increase the coin count
-            CoinCollectionText.text = "Coins: " + coinCount;
+            coinText.text = "Coins: " + coinCount;
             Debug.Log("Collected a coin! Total coins: " + coinCount);
         }
     }
