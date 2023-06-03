@@ -1,13 +1,15 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using static UnityEngine.InputSystem.InputAction;
+using System.Collections;
 
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(SpriteRenderer))]
 public class Player : MonoBehaviour, Hittable
 {
-
+    [SerializeField] public Text dieText;
     // This will change, but each one will be a weapon
     [SerializeField] private Weapon currentWeapon;
     [SerializeField] private Weapon[] weapons;
@@ -181,7 +183,18 @@ public class Player : MonoBehaviour, Hittable
     private void Die()
     {
         Debug.Log("Oooops you are dead :( \n Going to last Check point");
+
+        dieText.text = "Oooops you are dead :(";
+        StartCoroutine(ShowAndHideDeathText(5));
+
         TpToLastCheckPoint();
+
     }
+    IEnumerator ShowAndHideDeathText(float delay)
+        {
+            dieText.gameObject.SetActive(true); // show death text
+            yield return new WaitForSeconds(delay); // wait for specified delay
+            dieText.gameObject.SetActive(false); // hide death text
+        }
     #endregion
 }
