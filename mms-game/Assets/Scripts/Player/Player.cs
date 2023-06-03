@@ -9,7 +9,11 @@ using System.Collections;
 [RequireComponent(typeof(SpriteRenderer))]
 public class Player : MonoBehaviour, Hittable
 {
+
+    [SerializeField] public int lifePoints;
     [SerializeField] public Text dieText;
+    [SerializeField] public Text hitText;
+
     // This will change, but each one will be a weapon
     [SerializeField] private Weapon currentWeapon;
     [SerializeField] private Weapon[] weapons;
@@ -177,7 +181,13 @@ public class Player : MonoBehaviour, Hittable
     }
     public void Hit()
     {
-        Die();
+        lifePoints--;
+        hitText.text = "Oje!";
+        StartCoroutine(ShowAndHideHitText(2));
+        if(lifePoints <= 0)
+        {
+            Die();
+        }
     }
 
     private void Die()
@@ -185,16 +195,24 @@ public class Player : MonoBehaviour, Hittable
         Debug.Log("Oooops you are dead :( \n Going to last Check point");
 
         dieText.text = "Oooops you are dead :(";
-        StartCoroutine(ShowAndHideDeathText(5));
+        StartCoroutine(ShowAndHideDeathText(3));
 
         TpToLastCheckPoint();
 
     }
+
     IEnumerator ShowAndHideDeathText(float delay)
         {
             dieText.gameObject.SetActive(true); // show death text
             yield return new WaitForSeconds(delay); // wait for specified delay
             dieText.gameObject.SetActive(false); // hide death text
         }
+
+    IEnumerator ShowAndHideHitText(float delay)
+            {
+                hitText.gameObject.SetActive(true); // show death text
+                yield return new WaitForSeconds(delay); // wait for specified delay
+                hitText.gameObject.SetActive(false); // hide death text
+            }
     #endregion
 }
