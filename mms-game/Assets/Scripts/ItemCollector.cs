@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ItemCollector : MonoBehaviour
 {
     public int coinCount = 0; // number of coins
+    [SerializeField] private AudioSource coinCollect; //Audio
 
     [SerializeField] public Text coinText;
 
@@ -14,6 +15,7 @@ public class ItemCollector : MonoBehaviour
         if (collision.gameObject.CompareTag("Coin"))
         {
             Destroy(collision.gameObject); // remove the coin from the scene
+            coinCollect.Play();
             coinCount++; // increase the coin count
             coinText.text = "Coins: " + coinCount;
             Debug.Log("Collected a coin! Total coins: " + coinCount);

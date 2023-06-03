@@ -16,6 +16,9 @@ public class PlayerMovement : MonoBehaviour
     private InputAction movement1dAction;
     private InputAction dashAction;
 
+    //audio
+    [SerializeField] private AudioSource jumpSoundEffect;
+
 
     private void Start()
     {
@@ -90,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
         {
             SetWallJump();
         }
-
+        jumpSoundEffect.Play();
 
         // Wall jump
         _lastJumpPressed = Time.time;

@@ -14,6 +14,10 @@ public class Player : MonoBehaviour, Hittable
     [SerializeField] public Text dieText;
     [SerializeField] public Text hitText;
 
+    //audio
+    [SerializeField] private AudioSource dieSound;
+    [SerializeField] private AudioSource hitSound;
+
     // This will change, but each one will be a weapon
     [SerializeField] private Weapon currentWeapon;
     [SerializeField] private Weapon[] weapons;
@@ -182,8 +186,10 @@ public class Player : MonoBehaviour, Hittable
     public void Hit()
     {
         lifePoints--;
+        hitSound.Play(); //audio
         hitText.text = "Oje!";
         StartCoroutine(ShowAndHideHitText(2));
+
         if(lifePoints <= 0)
         {
             Die();
@@ -196,6 +202,10 @@ public class Player : MonoBehaviour, Hittable
 
         dieText.text = "Oooops you are dead :(";
         StartCoroutine(ShowAndHideDeathText(3));
+
+        dieSound.Play(); //audio
+
+        lifePoints = 3;
 
         TpToLastCheckPoint();
 
