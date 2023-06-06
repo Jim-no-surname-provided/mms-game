@@ -9,10 +9,14 @@ using System.Collections;
 [RequireComponent(typeof(SpriteRenderer))]
 public class Player : MonoBehaviour, Hittable
 {
-
-    [SerializeField] public int lifePoints;
+    [SerializeField] public int health;
+    [SerializeField] public int numOfHearts;
     [SerializeField] public Text dieText;
     [SerializeField] public Text hitText;
+
+    public Image[] hearts;
+    public Sprite fullHeart;
+    public Sprite emptyHeart;
 
     //audio
     [SerializeField] private AudioSource dieSound;
@@ -185,12 +189,13 @@ public class Player : MonoBehaviour, Hittable
     }
     public void Hit()
     {
-        lifePoints--;
+        health--;
+        CalcHearts();
         hitSound.Play(); //audio
         hitText.text = "Oje!";
         StartCoroutine(ShowAndHideHitText(2));
 
-        if(lifePoints <= 0)
+        if(health <= 0)
         {
             Die();
         }
@@ -205,10 +210,35 @@ public class Player : MonoBehaviour, Hittable
 
         dieSound.Play(); //audio
 
-        lifePoints = 3;
+        health = numOfHearts;
+        CalcHearts();
 
         TpToLastCheckPoint();
 
+    }
+
+    private void CalcHearts()
+    {
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if(i < health)
+            {
+                hearts[i].sprite = fullHeart;
+            } 
+            else
+            {
+                hearts[i].sprite = emptyHeart;
+            }
+
+            if(i < numOfHearts)
+            {
+                hearts[i].enabled = true;
+            }
+            else
+            {
+                hearts[i].enabled = false;
+            }
+        }
     }
 
     IEnumerator ShowAndHideDeathText(float delay)
