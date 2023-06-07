@@ -11,7 +11,8 @@ public class Player : MonoBehaviour, Hittable
 {
     [SerializeField] public int health;
     [SerializeField] public int numOfHearts;
-    [SerializeField] public Text hitText;
+    //[SerializeField] public Text hitText;
+    [SerializeField] public Image hitImage;
 
 
     public Image[] hearts;
@@ -193,8 +194,7 @@ public class Player : MonoBehaviour, Hittable
         health--;
         CalcHearts();
         hitSound.Play(); //audio
-        hitText.text = "Oje!";
-        //StartCoroutine(ShowAndHideHitText(2));
+        StartCoroutine(ShowAndHideHitImage(1));
 
         if(health <= 0)
         {
@@ -206,7 +206,6 @@ public class Player : MonoBehaviour, Hittable
     {
         Debug.Log("Oooops you are dead :( \n Going to last Check point");
 
-        //dieText.text = "Oooops you are dead :(";
         //StartCoroutine(ShowAndHideDeathText(3));
 
         dieSound.Play(); //audio
@@ -249,11 +248,11 @@ public class Player : MonoBehaviour, Hittable
             dieText.gameObject.SetActive(false); // hide death text
         }*/
 
-    /*IEnumerator ShowAndHideHitText(float delay)
+    IEnumerator ShowAndHideHitImage(float delay)
             {
-                hitText.gameObject.SetActive(true); // show death text
+                hitImage.gameObject.SetActive(true); // show death text
                 yield return new WaitForSeconds(delay); // wait for specified delay
-                hitText.gameObject.SetActive(false); // hide death text
-            }*/
+                hitImage.gameObject.SetActive(false); // hide death text
+            }
     #endregion
 }
