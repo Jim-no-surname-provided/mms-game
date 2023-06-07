@@ -11,12 +11,13 @@ public class Player : MonoBehaviour, Hittable
 {
     [SerializeField] public int health;
     [SerializeField] public int numOfHearts;
-    [SerializeField] public Text dieText;
     [SerializeField] public Text hitText;
+
 
     public Image[] hearts;
     public Sprite fullHeart;
     public Sprite emptyHeart;
+    public DeathScreen DeathScreen;
 
     //audio
     [SerializeField] private AudioSource dieSound;
@@ -193,7 +194,7 @@ public class Player : MonoBehaviour, Hittable
         CalcHearts();
         hitSound.Play(); //audio
         hitText.text = "Oje!";
-        StartCoroutine(ShowAndHideHitText(2));
+        //StartCoroutine(ShowAndHideHitText(2));
 
         if(health <= 0)
         {
@@ -205,16 +206,16 @@ public class Player : MonoBehaviour, Hittable
     {
         Debug.Log("Oooops you are dead :( \n Going to last Check point");
 
-        dieText.text = "Oooops you are dead :(";
-        StartCoroutine(ShowAndHideDeathText(3));
+        //dieText.text = "Oooops you are dead :(";
+        //StartCoroutine(ShowAndHideDeathText(3));
 
         dieSound.Play(); //audio
+        DeathScreen.Death();
 
-        health = numOfHearts;
-        CalcHearts();
+        //health = numOfHearts;
+        //CalcHearts();
 
-        TpToLastCheckPoint();
-
+        //TpToLastCheckPoint();
     }
 
     private void CalcHearts()
@@ -241,18 +242,18 @@ public class Player : MonoBehaviour, Hittable
         }
     }
 
-    IEnumerator ShowAndHideDeathText(float delay)
+    /*IEnumerator ShowAndHideDeathText(float delay)
         {
             dieText.gameObject.SetActive(true); // show death text
             yield return new WaitForSeconds(delay); // wait for specified delay
             dieText.gameObject.SetActive(false); // hide death text
-        }
+        }*/
 
-    IEnumerator ShowAndHideHitText(float delay)
+    /*IEnumerator ShowAndHideHitText(float delay)
             {
                 hitText.gameObject.SetActive(true); // show death text
                 yield return new WaitForSeconds(delay); // wait for specified delay
                 hitText.gameObject.SetActive(false); // hide death text
-            }
+            }*/
     #endregion
 }
