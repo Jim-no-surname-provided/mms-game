@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
+    public static bool setLevelMenu;
 
     public void Pause()
     {
@@ -19,9 +20,17 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+    public void ChangeLevel(int sceneID)
+    {
+        Time.timeScale = 1f;
+        setLevelMenu = true;
+        SceneManager.LoadScene(sceneID);
+    }
+
     public void Home(int sceneID)
     {
         Time.timeScale = 1f;
+        setLevelMenu = false;
         SceneManager.LoadScene(sceneID);
     }
 }

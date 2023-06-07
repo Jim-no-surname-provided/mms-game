@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class DeathScreen : MonoBehaviour
 {
     public GameObject deathScreen;
+    public static bool setLevelMenu;
     
     public void Death()
     {
@@ -18,6 +19,13 @@ public class DeathScreen : MonoBehaviour
         gameObject.SetActive(false);
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void ChangeLevel(int sceneID)
+    {
+        Time.timeScale = 1f;
+        setLevelMenu = true;
+        SceneManager.LoadScene(sceneID);
     }
 
     public void Home(int sceneID)
