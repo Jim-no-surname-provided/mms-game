@@ -20335,7 +20335,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1397130709}
         m_TargetAssemblyTypeName: DeathScreen, Assembly-CSharp
-        m_MethodName: Home
+        m_MethodName: ChangeLevel
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
