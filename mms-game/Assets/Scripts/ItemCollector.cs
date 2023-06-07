@@ -17,7 +17,7 @@ public class ItemCollector : MonoBehaviour
             Destroy(collision.gameObject); // remove the coin from the scene
             coinCollect.Play();
             coinCount++; // increase the coin count
-            coinText.text = "Coins: " + coinCount;
+            coinText.text = coinCount.ToString();
             Debug.Log("Collected a coin! Total coins: " + coinCount);
         }
     }
