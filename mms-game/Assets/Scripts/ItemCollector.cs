@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ItemCollector : MonoBehaviour
 {
-    public int coinCount = 0; // number of coins
+    public static int coinCount = 0; // number of coins
     [SerializeField] private AudioSource coinCollect; //Audio
 
     [SerializeField] public Text coinText;

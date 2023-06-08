@@ -938,6 +938,7 @@ GameObject:
   - component: {fileID: 398752025}
   - component: {fileID: 398752027}
   - component: {fileID: 398752026}
+  - component: {fileID: 398752028}
   m_Layer: 5
   m_Name: coinText
   m_TagString: Untagged
@@ -1007,6 +1008,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 398752024}
   m_CullTransparentMesh: 1
+--- !u!114 &398752028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398752024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11cf3e40ff8c0674fb11a43716bac96e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinText: {fileID: 398752026}
 --- !u!1 &405060438
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,6 +1178,7 @@ GameObject:
   - component: {fileID: 456350511}
   - component: {fileID: 456350513}
   - component: {fileID: 456350512}
+  - component: {fileID: 456350514}
   m_Layer: 5
   m_Name: coinText
   m_TagString: Untagged
@@ -1233,6 +1248,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 456350510}
   m_CullTransparentMesh: 1
+--- !u!114 &456350514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456350510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11cf3e40ff8c0674fb11a43716bac96e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinText: {fileID: 456350512}
 --- !u!1 &501491722
 GameObject:
   m_ObjectHideFlags: 0
@@ -5544,6 +5572,7 @@ GameObject:
   - component: {fileID: 2021016333}
   - component: {fileID: 2021016335}
   - component: {fileID: 2021016334}
+  - component: {fileID: 2021016336}
   m_Layer: 5
   m_Name: coinText
   m_TagString: Untagged
@@ -5613,6 +5642,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2021016332}
   m_CullTransparentMesh: 1
+--- !u!114 &2021016336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021016332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11cf3e40ff8c0674fb11a43716bac96e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinText: {fileID: 2021016334}
 --- !u!1 &2021244377
 GameObject:
   m_ObjectHideFlags: 0

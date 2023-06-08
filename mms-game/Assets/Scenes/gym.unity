@@ -17570,7 +17570,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6806311dec7fd14fa864eaca484a474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinCount: 0
   coinCollect: {fileID: 1271231706}
   coinText: {fileID: 2069754016}
 --- !u!82 &1271231698
@@ -20522,6 +20521,7 @@ GameObject:
   - component: {fileID: 2069754015}
   - component: {fileID: 2069754017}
   - component: {fileID: 2069754016}
+  - component: {fileID: 2069754018}
   m_Layer: 5
   m_Name: coinText
   m_TagString: Untagged
@@ -20591,6 +20591,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2069754014}
   m_CullTransparentMesh: 1
+--- !u!114 &2069754018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069754014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11cf3e40ff8c0674fb11a43716bac96e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinText: {fileID: 2069754016}
 --- !u!1 &2092094401
 GameObject:
   m_ObjectHideFlags: 0
