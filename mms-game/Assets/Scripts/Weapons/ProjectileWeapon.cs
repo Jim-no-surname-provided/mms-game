@@ -8,7 +8,10 @@ public abstract class ProjectileWeapon : Weapon
     [SerializeField]
     protected Transform firePosition;
 
-    private bool canShoot = true;
+    private bool canShoot = true; //cooldown to shoot
+
+    //audio
+    [SerializeField] private AudioSource shootSound;
 
     // A GameObject with a component of type Projectile. Every weapon can give a different projectile (for example a bullet, missile, bomb...)
     public abstract GameObject GetProjectile();
@@ -27,6 +30,7 @@ public abstract class ProjectileWeapon : Weapon
             pr.transform.position = GetFirePosition();
             pr.gameObject.SetActive(true);
             pr.Fire();
+            shootSound.Play();
 
             canShoot = false;
             StartCoroutine(ShootingCooldown());
