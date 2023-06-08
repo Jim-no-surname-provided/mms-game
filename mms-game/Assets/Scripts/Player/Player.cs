@@ -42,6 +42,8 @@ public class Player : MonoBehaviour, Hittable
     // This will be used to point the weapon towards the mouse
     private float angle;
 
+
+
     private void Start()
     {
         // Getting references
@@ -69,7 +71,9 @@ public class Player : MonoBehaviour, Hittable
     private void Update()
     {
         UpdateCursor();
+
     }
+
     private Vector2 screenPos;
 
     private void SetPointerPosition(CallbackContext context)
