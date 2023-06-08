@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 45215083daf33e941a63760e3a791d1e, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.70980394, g: 0.21960784, b: 0.42352942, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 6204152656011189683, guid: 6780920c805e3af429293d3b940cc114, type: 3}
   firePosition: {fileID: 3130889861470125729}
+  shootSound: {fileID: 0}
 --- !u!1 &3130889861470125730
 GameObject:
   m_ObjectHideFlags: 0

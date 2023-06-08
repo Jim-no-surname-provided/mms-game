@@ -1,15 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class CoinUIText : MonoBehaviour
+public class AddCoins : MonoBehaviour
 {
-    public Text coinText;
     // Start is called before the first frame update
     void Start()
     {
-        coinText.text = ItemCollector.coinCount.ToString();
+        
     }
 
     // Update is called once per frame
@@ -18,8 +16,8 @@ public class CoinUIText : MonoBehaviour
         
     }
 
-    public void coinTextUpdate() 
+    public void testShop() 
     {
-        coinText.text = ItemCollector.coinCount.ToString();
+        ItemCollector.coinCount = ItemCollector.coinCount + 100;
     }
 }
