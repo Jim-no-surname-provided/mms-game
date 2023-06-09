@@ -20,6 +20,11 @@ public class Player : MonoBehaviour, Hittable
     public Sprite emptyHeart;
     public DeathScreen DeathScreen;
 
+    //needed for gun shop
+    public GameObject gun;
+    public GameObject bouncingGun;
+    public GameObject freezingGun;
+
     //audio
     [SerializeField] private AudioSource dieSound;
     [SerializeField] private AudioSource hitSound;
@@ -63,8 +68,15 @@ public class Player : MonoBehaviour, Hittable
         changeWeaponAction.started += context => ChangeToWeapon((int)context.ReadValue<float>());
 
         // Get weapons
+        CalcUnlockedWeapons();
         weapons = GetComponentsInChildren<Weapon>();
         nWeapons = weapons.Length;
+        
+        // Disable visual of all weapons expect the first
+        ChangeToWeapon(4);
+        ChangeToWeapon(3);
+        ChangeToWeapon(2);
+        ChangeToWeapon(1);
     }
 
     #region cursor
@@ -169,6 +181,24 @@ public class Player : MonoBehaviour, Hittable
             newArray[i] = weapons[i];
         }
         weapons = newArray;
+    }
+
+    public void CalcUnlockedWeapons()
+    {
+        if(ShopManager.boughtGun)
+        {
+            gun.SetActive(true);
+        }
+
+        if(ShopManager.boughtBouncingGun)
+        {
+            bouncingGun.SetActive(true);
+        }
+
+        if(ShopManager.boughtFreezingGun)
+        {
+            freezingGun.SetActive(true);
+        }
     }
     #endregion
 
