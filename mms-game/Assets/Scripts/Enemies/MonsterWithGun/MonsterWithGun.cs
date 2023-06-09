@@ -5,12 +5,19 @@ public class MonsterWithGun : SimpleMonster
 {
     [SerializeField] private Gun gun;
     [SerializeField] private float shootingInterval = 3f; 
+    [SerializeField] private float directionChangeInterval = 0f;
     private Coroutine shootCoroutine;
+    private Coroutine directionChangeCoroutine;
 
     protected override void Start() 
     { 
         base.Start(); 
         shootCoroutine =  StartCoroutine(ShootWeapon(gun)); 
+
+        if (directionChangeInterval > 0)
+        {
+            directionChangeCoroutine = StartCoroutine(ChangeDirectionCoroutine());
+        }
     }
 
     IEnumerator ShootWeapon(Gun gun)
@@ -19,6 +26,15 @@ public class MonsterWithGun : SimpleMonster
         {
             gun.Use(movingDirection ? 180: 0);
             yield return new WaitForSeconds(shootingInterval);
+        }
+    }
+
+    IEnumerator ChangeDirectionCoroutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(directionChangeInterval);
+            ChangeMovingDirection();
         }
     }
 
@@ -34,6 +50,11 @@ public class MonsterWithGun : SimpleMonster
         if (shootCoroutine != null)
         {
             StopCoroutine(shootCoroutine);
+        }
+
+        if (directionChangeCoroutine != null)
+        {
+            StopCoroutine(directionChangeCoroutine);
         }
     }
     

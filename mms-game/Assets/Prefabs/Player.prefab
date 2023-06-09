@@ -143,8 +143,8 @@ MonoBehaviour:
   numOfHearts: 3
   hitImage: {fileID: 0}
   hearts: []
-  fullHeart: {fileID: 0}
-  emptyHeart: {fileID: 0}
+  fullHeart: {fileID: -394980561, guid: 15453708f0826394887528d4043596fb, type: 3}
+  emptyHeart: {fileID: -1538482046, guid: 15453708f0826394887528d4043596fb, type: 3}
   DeathScreen: {fileID: 0}
   gun: {fileID: 1786315752787822198}
   bouncingGun: {fileID: 6373247945628417480}
