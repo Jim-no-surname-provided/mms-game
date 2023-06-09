@@ -14,18 +14,21 @@ public class MonsterWithGun : SimpleMonster
         base.Start(); 
         shootCoroutine =  StartCoroutine(ShootWeapon(gun)); 
 
-        if (directionChangeInterval > 0)
+       /* if (directionChangeInterval > 0)
         {
             directionChangeCoroutine = StartCoroutine(ChangeDirectionCoroutine());
-        }
+        }*/
     }
 
     IEnumerator ShootWeapon(Gun gun)
     {
         while (true)
         {
+            animator.SetTrigger("shootTime");
+            yield return new WaitForSeconds(1);
             gun.Use(movingDirection ? 180: 0);
             yield return new WaitForSeconds(shootingInterval);
+            animator.SetTrigger("restingTime");
         }
     }
 
@@ -40,6 +43,7 @@ public class MonsterWithGun : SimpleMonster
 
     public override void ChangeMovingDirection()
     {
+        Debug.Log("Changing direction");
         movingDirection = !movingDirection;
         transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
     }
@@ -51,10 +55,10 @@ public class MonsterWithGun : SimpleMonster
             StopCoroutine(shootCoroutine);
         }
 
-        if (directionChangeCoroutine != null)
+        /*if (directionChangeCoroutine != null)
         {
             StopCoroutine(directionChangeCoroutine);
-        }
+        }*/
     }
     
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class SimpleMonster : Enemy, IFreezable
@@ -70,7 +71,11 @@ public class SimpleMonster : Enemy, IFreezable
     }
     public void SetWallDetector()
     {
-        wallDetector.onTriggerDetectionEvent += (x => ChangeMovingDirection());
+        wallDetector.onTriggerDetectionEvent += (x =>
+        {
+            ChangeMovingDirection();
+            Debug.Log("Wall touched");
+        });
     }
 
     public virtual void ChangeMovingDirection()
@@ -83,9 +88,17 @@ public class SimpleMonster : Enemy, IFreezable
         KillSimpleMonster();
     }
 
-    public virtual void KillSimpleMonster()
+    IEnumerator KillMonsterAnimation()
     {
+        animator.SetTrigger("Hurt");
+        yield return new WaitForSeconds(1);
         Destroy(this.gameObject);
+    }
+
+    public void KillSimpleMonster()
+    {
+        StartCoroutine(KillMonsterAnimation());
+
     }
 
     public void Freeze(float duration)

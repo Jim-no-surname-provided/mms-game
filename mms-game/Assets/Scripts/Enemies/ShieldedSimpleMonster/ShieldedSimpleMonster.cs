@@ -54,18 +54,6 @@ public class ShieldedSimpleMonster : SimpleMonster
         transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
     }
 
-    IEnumerator KillMonsterAnimation ()
-    {
-        animator.SetTrigger("Hurt");
-        yield return new WaitForSeconds(2);
-        Destroy(this.gameObject);
-    }
-
-    public override void KillSimpleMonster()
-    {
-        StartCoroutine(KillMonsterAnimation());
-
-    }
     private void OnDestroy()
     {
         if (directionChangeCoroutine != null)
