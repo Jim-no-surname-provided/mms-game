@@ -41,12 +41,18 @@ public abstract class Projectile : MonoBehaviour, DamageDealer
     protected virtual void OnCollisionEnter2D(Collision2D c)
     {
         // Bounce();
-        explode();
+        if(!c.gameObject.CompareTag("Coin"))
+        {
+            explode();
+        }
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
-        HitOther(other.gameObject);
-        explode();
+        if(!other.gameObject.CompareTag("Coin"))
+        {
+            HitOther(other.gameObject);
+            explode();
+        }
     }
 }
