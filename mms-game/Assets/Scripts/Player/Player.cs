@@ -47,8 +47,6 @@ public class Player : MonoBehaviour, Hittable
     // This will be used to point the weapon towards the mouse
     private float angle;
 
-
-
     private void Start()
     {
         // Getting references
@@ -71,7 +69,7 @@ public class Player : MonoBehaviour, Hittable
         CalcUnlockedWeapons();
         weapons = GetComponentsInChildren<Weapon>();
         nWeapons = weapons.Length;
-        
+
         // Disable visual of all weapons expect the first
         ChangeToWeapon(4);
         ChangeToWeapon(3);
@@ -185,17 +183,17 @@ public class Player : MonoBehaviour, Hittable
 
     public void CalcUnlockedWeapons()
     {
-        if(ShopManager.boughtGun)
+        if (ShopManager.boughtGun)
         {
             gun.SetActive(true);
         }
 
-        if(ShopManager.boughtBouncingGun)
+        if (ShopManager.boughtBouncingGun)
         {
             bouncingGun.SetActive(true);
         }
 
-        if(ShopManager.boughtFreezingGun)
+        if (ShopManager.boughtFreezingGun)
         {
             freezingGun.SetActive(true);
         }
@@ -230,7 +228,7 @@ public class Player : MonoBehaviour, Hittable
         hitSound.Play(); //audio
         StartCoroutine(ShowAndHideHitImage(1));
 
-        if(health <= 0)
+        if (health <= 0)
         {
             Die();
         }
@@ -238,7 +236,7 @@ public class Player : MonoBehaviour, Hittable
 
     private void Die()
     {
-        Debug.Log("Oooops you are dead :( \n Going to last Check point");
+        // // Debug.Log("Oooops you are dead :( \n Going to last Check point");
 
         //StartCoroutine(ShowAndHideDeathText(3));
 
@@ -255,16 +253,16 @@ public class Player : MonoBehaviour, Hittable
     {
         for (int i = 0; i < hearts.Length; i++)
         {
-            if(i < health)
+            if (i < health)
             {
                 hearts[i].sprite = fullHeart;
-            } 
+            }
             else
             {
                 hearts[i].sprite = emptyHeart;
             }
 
-            if(i < numOfHearts)
+            if (i < numOfHearts)
             {
                 hearts[i].enabled = true;
             }
@@ -283,10 +281,10 @@ public class Player : MonoBehaviour, Hittable
         }*/
 
     IEnumerator ShowAndHideHitImage(float delay)
-            {
-                hitImage.gameObject.SetActive(true); // show death text
-                yield return new WaitForSeconds(delay); // wait for specified delay
-                hitImage.gameObject.SetActive(false); // hide death text
-            }
+    {
+        hitImage.gameObject.SetActive(true); // show death text
+        yield return new WaitForSeconds(delay); // wait for specified delay
+        hitImage.gameObject.SetActive(false); // hide death text
+    }
     #endregion
 }
