@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f2abc0f50252a74cb6a0bf2b4b9ee6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movingDirection: 0
+  movingDirection: 1
   speed: 2
   playerDetector: {fileID: 208725682588111522}
   wallDetector: {fileID: 8969211271488389059}

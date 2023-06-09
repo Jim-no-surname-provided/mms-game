@@ -73,7 +73,6 @@ public class SimpleMonster : Enemy, IFreezable
         wallDetector.onTriggerDetectionEvent += (x =>
         {
             ChangeMovingDirection();
-            Debug.Log("Wall touched");
         });
     }
 
@@ -89,6 +88,7 @@ public class SimpleMonster : Enemy, IFreezable
 
     IEnumerator KillMonsterAnimation()
     {
+        playerDetector.gameObject.SetActive(false);
         animator.SetTrigger("hurt");
         yield return new WaitForSeconds(1);
         Destroy(this.gameObject);

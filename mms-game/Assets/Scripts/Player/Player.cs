@@ -115,7 +115,6 @@ public class Player : MonoBehaviour, Hittable
     public void ChangeToWeapon(int index)
     {
 
-        Debug.Log("The index is " + index);
         if (index > nWeapons)
         {
             return;

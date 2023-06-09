@@ -26,9 +26,8 @@ public class MonsterWithGun : SimpleMonster
         {
             animator.SetTrigger("shootTime");
             yield return new WaitForSeconds(1);
-            gun.Use(movingDirection ? 180: 0);
+            gun.Use(movingDirection ? 0 : 180);
             yield return new WaitForSeconds(shootingInterval);
-            animator.SetTrigger("restingTime");
         }
     }
 
