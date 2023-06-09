@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class DeathScreen : MonoBehaviour
+public class FinishAndDeathScreen : MonoBehaviour
 {
     public GameObject deathScreen;
     public static bool setLevelMenu;
@@ -19,6 +19,21 @@ public class DeathScreen : MonoBehaviour
         gameObject.SetActive(false);
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void NextLevel(int sceneID)
+    {
+        gameObject.SetActive(false);
+        Time.timeScale = 1f;
+        if(SceneManager.GetActiveScene().buildIndex < 2)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        else
+        {
+            setLevelMenu = true;
+            SceneManager.LoadScene(sceneID);
+        }
     }
 
     public void ChangeLevel(int sceneID)

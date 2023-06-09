@@ -18,7 +18,7 @@ public class Player : MonoBehaviour, Hittable
     public Image[] hearts;
     public Sprite fullHeart;
     public Sprite emptyHeart;
-    public DeathScreen DeathScreen;
+    public FinishAndDeathScreen FinishAndDeathScreen;
 
     //needed for gun shop
     public GameObject gun;
@@ -241,7 +241,7 @@ public class Player : MonoBehaviour, Hittable
         //StartCoroutine(ShowAndHideDeathText(3));
 
         dieSound.Play(); //audio
-        DeathScreen.Death();
+        FinishAndDeathScreen.Death();
 
         //health = numOfHearts;
         //CalcHearts();

@@ -10,12 +10,12 @@ public class changeLevelLogic : MonoBehaviour
 
     void Start()
     {
-        if(PauseMenu.setLevelMenu || DeathScreen.setLevelMenu)
+        if(PauseMenu.setLevelMenu || FinishAndDeathScreen.setLevelMenu)
         {
             InitialMenu.SetActive(false);
             LevelMenu.SetActive(true);
             PauseMenu.setLevelMenu = false;
-            DeathScreen.setLevelMenu = false;
+            FinishAndDeathScreen.setLevelMenu = false;
         }
     }
 
