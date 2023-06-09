@@ -143,9 +143,12 @@ MonoBehaviour:
   numOfHearts: 3
   hitImage: {fileID: 0}
   hearts: []
-  fullHeart: {fileID: 0}
-  emptyHeart: {fileID: 0}
+  fullHeart: {fileID: -394980561, guid: 15453708f0826394887528d4043596fb, type: 3}
+  emptyHeart: {fileID: -1538482046, guid: 15453708f0826394887528d4043596fb, type: 3}
   DeathScreen: {fileID: 0}
+  gun: {fileID: 1786315752787822198}
+  bouncingGun: {fileID: 6373247945628417480}
+  freezingGun: {fileID: 948505013368559664}
   dieSound: {fileID: 0}
   hitSound: {fileID: 0}
   currentWeapon: {fileID: 1786315752787822197}
@@ -405,7 +408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3130889861245221671, guid: 3eec40466c1e0ba4fbc41ac69e839aa2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3eec40466c1e0ba4fbc41ac69e839aa2, type: 3}
@@ -580,7 +583,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3130889861245221671, guid: d9ea370f1d6f1d141ab4edd9de97a6fe, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3130889861470125730, guid: d9ea370f1d6f1d141ab4edd9de97a6fe, type: 3}
       propertyPath: m_Layer
@@ -937,7 +940,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3130889861245221671, guid: 6ca15917d2bd1394a9f31791f5b4d97d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ca15917d2bd1394a9f31791f5b4d97d, type: 3}

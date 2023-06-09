@@ -12,9 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 26d957bdbac0a4749b3366107d3aa8e1
   - enabled: 1
+    path: Assets/Scenes/training.unity
+    guid: fb18477510fb5b24ab0ef095fd7d3af3
+  - enabled: 1
+    path: Assets/Scenes/level1.unity
+    guid: 3954c6beb53947b459bee575742dde2a
+  - enabled: 1
     path: Assets/Scenes/gym.unity
     guid: 16c7d2e54735fe34bb7a3f11408f5c60
-  - enabled: 0
-    path: Assets/Scenes/level1.unity
-    guid: 318697a9900182840b8c07c556ffaeb7
   m_configObjects: {}

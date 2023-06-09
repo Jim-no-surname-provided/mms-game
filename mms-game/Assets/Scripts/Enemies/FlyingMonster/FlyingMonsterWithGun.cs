@@ -5,7 +5,9 @@ public class FlyingMonsterWithGun : SimpleMonster
 {
     [SerializeField] private Gun gun;
     [SerializeField] private float shootingInterval = 3f;
+    [SerializeField] private float directionChangeInterval = 0f;
     private Coroutine shootCoroutine;
+    private Coroutine directionChangeCoroutine;
     private GameObject player;
 
     protected override void Start()
@@ -13,6 +15,11 @@ public class FlyingMonsterWithGun : SimpleMonster
         base.Start();
         shootCoroutine = StartCoroutine(ShootWeapon(gun));
         player = GameObject.FindGameObjectWithTag("Player");
+
+        if (directionChangeInterval > 0)
+        {
+            directionChangeCoroutine = StartCoroutine(ChangeDirectionCoroutine());
+        }
     }
 
     IEnumerator ShootWeapon(Gun gun)
@@ -30,6 +37,15 @@ public class FlyingMonsterWithGun : SimpleMonster
         }
     }
 
+    IEnumerator ChangeDirectionCoroutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(directionChangeInterval);
+            ChangeMovingDirection();
+        }
+    }
+
     public override void ChangeMovingDirection()
     {
         movingDirection = !movingDirection;
@@ -42,6 +58,11 @@ public class FlyingMonsterWithGun : SimpleMonster
         if (shootCoroutine != null)
         {
             StopCoroutine(shootCoroutine);
+        }
+
+        if (directionChangeCoroutine != null)
+        {
+            StopCoroutine(directionChangeCoroutine);
         }
     }
     

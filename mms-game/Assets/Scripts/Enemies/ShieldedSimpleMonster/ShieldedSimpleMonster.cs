@@ -5,6 +5,8 @@ public class ShieldedSimpleMonster : SimpleMonster
 {
     [SerializeField] private DetectionCollider shieldDetector;
     [SerializeField] private DetectionCollider weakPointDetector;
+    [SerializeField] private float directionChangeInterval = 0f;
+    private Coroutine directionChangeCoroutine;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -30,6 +32,20 @@ public class ShieldedSimpleMonster : SimpleMonster
         });
 
         SetWallDetector();
+
+        if (directionChangeInterval > 0)
+        {
+            directionChangeCoroutine = StartCoroutine(ChangeDirectionCoroutine());
+        }
+    }
+
+    IEnumerator ChangeDirectionCoroutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(directionChangeInterval);
+            ChangeMovingDirection();
+        }
     }
 
     public override void ChangeMovingDirection()
@@ -49,5 +65,12 @@ public class ShieldedSimpleMonster : SimpleMonster
     {
         StartCoroutine(KillMonsterAnimation());
 
+    }
+    private void OnDestroy()
+    {
+        if (directionChangeCoroutine != null)
+        {
+            StopCoroutine(directionChangeCoroutine);
+        }
     }
 }
