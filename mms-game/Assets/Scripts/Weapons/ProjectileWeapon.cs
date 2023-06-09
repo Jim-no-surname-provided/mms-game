@@ -39,7 +39,7 @@ public abstract class ProjectileWeapon : Weapon
 
     private IEnumerator ShootingCooldown()
             {
-                yield return new WaitForSeconds(1);  // 1 seconds wait time
+                yield return new WaitForSeconds(0.5f);  // 0.5 seconds wait time
                 canShoot = true;
             }
 
