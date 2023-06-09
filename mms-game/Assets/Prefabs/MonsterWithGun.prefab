@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35a2d34bc3474664e9500fe1b8b4e7e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 6204152656011189683, guid: bd967829df990c4449a058490d4de6d3, type: 3}
+  projectilePrefab: {fileID: 6204152656011189683, guid: 08aba947cd8b5574189b7e1ee6141d97, type: 3}
   firePosition: {fileID: 6928641611809453991}
   shootSound: {fileID: 431853259319568081}
 --- !u!82 &431853259319568081

@@ -162,7 +162,7 @@ MonoBehaviour:
   surfaceToBounceOf:
     serializedVersion: 2
     m_Bits: 36928
-  speed: 10
+  speed: 15
 --- !u!50 &-2405455187091738677
 Rigidbody2D:
   serializedVersion: 4

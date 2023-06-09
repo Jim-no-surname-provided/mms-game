@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0.2583481, g: 0.7359766, b: 0.7735849, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -95,10 +95,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6204152656011189687}
   - component: {fileID: 6204152656011189685}
-  - component: {fileID: 4896715834014449531}
+  - component: {fileID: 6204152656011189682}
   - component: {fileID: -2405455187091738677}
   m_Layer: 7
-  m_Name: FreezingBullet
+  m_Name: MonsterBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,7 +146,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.8675702, y: 1.0585531}
   m_EdgeRadius: 0
---- !u!114 &4896715834014449531
+--- !u!114 &6204152656011189682
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,12 +155,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6204152656011189683}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9caa6203c2898b49a43bb30be12890f, type: 3}
+  m_Script: {fileID: 11500000, guid: 73679d30ba0c02448a40c7d92854243c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lifeLength: 5
-  speed: 15
-  freezeDuration: 2
+  surfaceToBounceOf:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  speed: 10
 --- !u!50 &-2405455187091738677
 Rigidbody2D:
   serializedVersion: 4
@@ -256,7 +258,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.25882354, g: 0.7372549, b: 0.7725491, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
