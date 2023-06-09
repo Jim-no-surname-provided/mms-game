@@ -90,7 +90,7 @@ public class SimpleMonster : Enemy, IFreezable
 
     IEnumerator KillMonsterAnimation()
     {
-        animator.SetTrigger("Hurt");
+        animator.SetTrigger("hurt");
         yield return new WaitForSeconds(1);
         Destroy(this.gameObject);
     }
