@@ -17150,6 +17150,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 666696501}
     m_Modifications:
+    - target: {fileID: 6977300231477319048, guid: fc64550f579d350429dabdf1901f4cf6, type: 3}
+      propertyPath: levelSceneName
+      value: training
+      objectReference: {fileID: 0}
     - target: {fileID: 6977300231477319052, guid: fc64550f579d350429dabdf1901f4cf6, type: 3}
       propertyPath: m_Pivot.x
       value: 1
@@ -17249,6 +17253,10 @@ PrefabInstance:
     - target: {fileID: 6977300231477319053, guid: fc64550f579d350429dabdf1901f4cf6, type: 3}
       propertyPath: m_Name
       value: TrainingBtn
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977300231477319053, guid: fc64550f579d350429dabdf1901f4cf6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6977300232064153316, guid: fc64550f579d350429dabdf1901f4cf6, type: 3}
       propertyPath: m_text
