@@ -19,13 +19,21 @@ public class PlayerMovement : MonoBehaviour
     //audio
     [SerializeField] private AudioSource jumpSoundEffect;
 
+    // Animator
+    private Animator animator;
+
+    private void Awake()
+    {
+        Invoke(nameof(Activate), 0.5f);
+        // Get References;
+        player = GetComponent<Player>();
+        playerInput = GetComponent<PlayerInput>();
+        animator = GetComponent<Animator>();
+    }
 
     private void Start()
     {
-        // Get References;
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        player = GetComponent<Player>();
-        playerInput = GetComponent<PlayerInput>();
         jumpAction = playerInput.actions["Jump"];
         movement1dAction = playerInput.actions["Movement1d"];
         dashAction = playerInput.actions["Dash"];
@@ -56,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
 
     // This is horrible, but for some reason colliders are not fully established when update starts...
     private bool _active;
-    void Awake() => Invoke(nameof(Activate), 0.5f);
+    // // void Awake() => Invoke(nameof(Activate), 0.5f);
     void Activate() => _active = true;
 
     private void FixedUpdate()
@@ -113,12 +121,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void CancelX(InputAction.CallbackContext context)
     {
+        animator.SetBool("Walking", false);
         movingPressed = false;
     }
     private void UpdateX(InputAction.CallbackContext context)
     {
+        animator.SetBool("Walking", true);
         movingPressed = true;
         inputX = context.ReadValue<float>();
+        animator.SetFloat("WalkingVelocity", inputX);
         updateFacing();
     }
 
@@ -365,7 +376,7 @@ public class PlayerMovement : MonoBehaviour
                 SetJump();
             }
             else if (wallSliding)
-            {   
+            {
                 SetWallJump();
             }
         }
