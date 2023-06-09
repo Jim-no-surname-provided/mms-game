@@ -11,7 +11,18 @@ public class FinishLine : MonoBehaviour
         {
             Debug.Log("Sie haben das Ziel erreicht!");
 
-            SceneManager.LoadScene(0);
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            int totalSceneCount = SceneManager.sceneCountInBuildSettings;
+            // If there is a next scene
+            if(currentSceneIndex < totalSceneCount - 1)
+            {
+             SceneManager.LoadScene(currentSceneIndex + 1);
+             }
+             // If there is no next scene, load scene 0
+             else
+             {
+             SceneManager.LoadScene(0);
+             }
         }
 
     }
