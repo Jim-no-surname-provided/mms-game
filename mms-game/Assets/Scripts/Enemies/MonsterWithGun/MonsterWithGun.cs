@@ -25,7 +25,6 @@ public class MonsterWithGun : SimpleMonster
     public override void ChangeMovingDirection()
     {
         movingDirection = !movingDirection;
-        //spriteRenderer.flipX = !spriteRenderer.flipX;
         transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
     }
 

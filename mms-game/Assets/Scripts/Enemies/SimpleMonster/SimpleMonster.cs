@@ -7,6 +7,7 @@ public class SimpleMonster : Enemy, IFreezable
 
     [SerializeField] private DetectionCollider playerDetector;
     [SerializeField] private DetectionCollider wallDetector;
+    protected Animator animator;
 
     protected SpriteRenderer spriteRenderer;
     [Range(0, 1)][SerializeField] private float eyeHightPercentage = 0.25f;
@@ -22,7 +23,7 @@ public class SimpleMonster : Enemy, IFreezable
     {
         //Create event listeners 
         //implement onTriggerDetectionEvent methods
-
+        animator = GetComponent<Animator>();
         SetSpriteRenderer();
 
         playerDetector.onTriggerDetectionEvent += (x =>
@@ -82,7 +83,7 @@ public class SimpleMonster : Enemy, IFreezable
         KillSimpleMonster();
     }
 
-    public void KillSimpleMonster()
+    public virtual void KillSimpleMonster()
     {
         Destroy(this.gameObject);
     }
