@@ -18,7 +18,6 @@ public class SimpleMonster : Enemy, IFreezable
     private float remainingFreezeTime = 0f;
 
 
-
     // Start is called before the first frame update
     protected virtual void Start()
     {
